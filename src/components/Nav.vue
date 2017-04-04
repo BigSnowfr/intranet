@@ -1,0 +1,194 @@
+<template>
+    <div id="app" class="content">
+        <div class="header">
+            <div>
+                <button @click="changeAccount" class="bouton titre">Bonjour {{ prenom }}</button>
+            </div>
+            <p class="date">{{ date }}</p>
+        </div>
+        <div v-if="pseudo">
+            <div class="loaded">
+                <div class="contenu">
+                    <div class="bouttons">
+                        <router-link to='/salles' class='boutton' exact>
+                            Salles
+                        </router-link>
+                        <router-link to='/' class='boutton' exact>
+                            Ma Journée
+                        </router-link>
+                        <router-link to='/demain' class='boutton' exact>
+                            Demain
+                        </router-link>
+                    </div>
+                    <transition name='slide-fade' mode='out-in'>
+                        <router-view></router-view>
+                    </transition>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {HTTP} from '../api'
+    import sallesDispo from './sallesDispo.vue'
+    import moment from 'moment'
+    import tuileCours from './tuileCours.vue'
+    import store from '../store'
+    export default {
+        name: 'app',
+        data () {
+            return {
+                cours: [],
+                pseudo: '',
+                prenom: '',
+                ajax: false,
+                date: '',
+                salles: [],
+                ajaxSalles: false
+            }
+        },
+        components: {
+            sallesDispo,
+            tuileCours
+        },
+        created () {
+            moment.locale('fr');
+            this.date = moment().format('dddd D MMMM YYYY');
+            let pseudo = localStorage.getItem('pseudo');
+            if (pseudo === null) {
+                pseudo = prompt('Pseudo intranet ?');
+                localStorage.setItem('pseudo', pseudo);
+            }
+            this.pseudo = pseudo;
+            HTTP.get('user/' + this.pseudo).then((response) => {
+                this.prenom = response.data.prenom;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        methods: {
+            changeAccount () {
+                let pseudo = prompt('Pseudo intranet ?');
+                if (pseudo !== '') {
+                    localStorage.setItem('pseudo', pseudo);
+                    this.pseudo = pseudo;
+                }
+            },
+            changeJour(jour) {
+                let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain' ;
+                store.commit('SET_JOUR', jourAPI);
+            }
+        },
+        watch: {
+            pseudo () {
+                if (this.pseudo === null || this.pseudo === 'null') {
+                    this.changeAccount();
+                }
+            },
+            '$route': 'changeJour'
+        }
+    }
+</script>
+
+<style lang="scss">
+    $green : #27B07C;
+    $blue: #146F88;
+    $blueDark: #57709c;
+    .content{
+        a {
+            text-decoration: none;
+            &:hover, &:active {
+                text-decoration: none;
+                transform: scale(1.01);
+            }
+        }
+        user-select: none;
+        font-family: 'Open Sans', sans-serif;
+        .loading {
+            margin-top: 200px;
+        }
+        .header {
+            width: 100%;
+            height: 150px;
+            color: #ffffff;
+            padding-top: 2vh;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            background-color: $blue;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            .bouton {
+                background-color: transparent;
+                border: 0;
+            }
+            .sous-titre {
+                margin: auto;
+            }
+            .titre {
+                font-size: 2em;
+                width: 100vw;
+                display: inline-block;
+                float: left;
+            }
+            img {
+                height: 40px;
+            }
+            .date {
+                font-size: 1.4em;
+                margin-top: 20px;
+            }
+            .sous-titre {
+                font-size: 1.4em;
+                margin-top: 0;
+                .heure {
+                    font-weight: 800;
+                }
+            }
+        }
+        .contenu {
+            min-height: calc(100vh - 280px);
+            margin-top: 20px;
+            padding: 0 10px;
+            .bouttons {
+                display: flex;
+                margin-bottom: 15px;
+                .boutton {
+                    flex: 1;
+                    text-align: center;
+                    color: $green;
+                    font-weight: 500;
+                }
+                .router-link-active {
+                    font-size: 18px;
+                    color: $blueDark;
+                    font-weight: 600;
+                }
+            }
+            .titre {
+                font-weight: 600;
+                font-size: 1.2em;
+                color: $blue;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+        .footer {
+            width: 100%;
+            .bouton {
+                background-color: $blue;
+                border: 0;
+                padding: 10px;
+                color: #fff;
+                width: 100%;
+                height: 60px;
+                position: relative;
+                bottom: 0;
+
+                &:hover, &:active {
+                    background-color: $blueDark;
+                }
+            }
+        }
+    }
+</style>
