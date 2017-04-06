@@ -90,6 +90,7 @@
                 padding: 5px 10px;
                 border-radius: 14px;
                 margin: 10px;
+                font-size: 14px;
 
             }
         }

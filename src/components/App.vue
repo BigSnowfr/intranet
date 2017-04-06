@@ -1,54 +1,41 @@
 <template>
     <div>
-        <div v-if="!ajax">
-            <div v-for="(cour, index) in cours" v-if="cour.hfin !== undefined">
-                <tuile-cours :cour="cour" v-if="cour.hfin !== '12:30'"></tuile-cours>
-                <div v-else>
-                    <div class="block-cours">
-                        <div class="top">
-                            <span class="nom">{{ cour.type }} <span v-if="cour.matiere !== ''">/ {{ cour.libelle_long
-                                }}</span></span>
-                            <span class="prof">{{ cour.prof }}</span>
-                        </div>
-                        <p>{{ cour.texte }}</p>
-                        <div class="bottom">
-                            <span class="heure">{{ cour.hdebut }} - {{ cour.hfin }}</span>
-                            <span class="salle" v-if="cour.salle !== '****'">{{ cour.salle }}</span>
-                        </div>
-                    </div>
-                    <a href="https://www.google.fr/maps/search/48.268101,+4.070629/@48.2684398,4.0715042,17.25z"
-                       target="_blank">
-                        <div class="block-cours food-container">
-                            <div class="image">
-                                <img class="photo" :src="'http://195.83.128.55/~mmi15b08/intranet/assets/food.jpg'" alt="Repas">
-                            </div>
-                            <div class="top">
-                                <span class="nom">Pause Repas</span>
-                            </div>
-                        </div>
-                    </a>
+        <div v-if="!ajax" class="cours">
+            <div class="slim">
+                <span v-if="pseudoFriend" class="pseudo-cours">{{pseudo}}</span>
+                <liste-cours :coursProps="cours"></liste-cours>
+                <div class="block-cours plus-cours-container">
+                    <p class="plus-cours">Votre journée est terminée</p>
                 </div>
             </div>
-            <div class="block-cours">
-                <p class="plus-cours">Votre journée est terminée</p>
+            <div class="slim" v-if="pseudoFriend">
+                <button class="pseudo-cours btn-pseudo-cours" @click="removeFriend">{{ pseudoFriend }} <span class="remove-friend">X</span></button>
+                <liste-cours :coursProps="coursFriend"></liste-cours>
+                <div class="block-cours plus-cours-container">
+                    <p class="plus-cours">Votre journée est terminée</p>
+                </div>
             </div>
+            <button-compare-e-d-t></button-compare-e-d-t>
+            <modal-pseudo v-if="modalPseudo"></modal-pseudo>
         </div>
         <div class="loading text-center" v-else>
             <img :src="'http://195.83.128.55/~mmi15b08/intranet/assets/ring.svg'" alt="Loading">
         </div>
     </div>
 </template>
-
 <script>
     import {HTTP} from '../api'
     import moment from 'moment'
-    import tuileCours from './tuileCours.vue'
+    import buttonCompareEDT from './buttonCompareEDT.vue'
+    import modalPseudo from './modalPseudo.vue'
+    import listeCours from './listeCours.vue'
     import store from '../store'
     export default {
         name: 'app',
         data () {
             return {
                 cours: [],
+                coursFriend: [],
                 pseudo: '',
                 prenom: '',
                 ajax: false,
@@ -57,15 +44,24 @@
             }
         },
         components: {
-            tuileCours
+            buttonCompareEDT,
+            modalPseudo,
+            listeCours
         },
         computed: {
-            jour () { return store.state.jour}
+            jour () { return store.state.jour},
+            modalPseudo () { return store.state.modalPseudo},
+            pseudoFriend () { return store.state.pseudoFriend}
         },
         watch: {
           jour () {
-              this.getClasses();
-          }
+              this.getClasses(this.pseudo);
+          },
+            pseudoFriend () {
+              if(this.pseudoFriend !== '') {
+                  this.getClasses(this.pseudoFriend);
+              }
+            }
         },
         created () {
             moment.locale('fr');
@@ -81,41 +77,82 @@
             }).catch(function (error) {
                 console.log(error);
             });
-            this.getClasses();
+            this.getClasses(this.pseudo);
+            if (this.pseudoFriend !== '') {
+                this.getClasses(this.pseudoFriend);
+            }
         },
         methods: {
-            getClasses () {
-                if (this.pseudo !== null) {
+            getClasses (pseudo) {
+                if (pseudo !== null) {
                     let self = this;
                     this.ajax = true;
-                    HTTP.get(`${this.jour}/${this.pseudo}`).then((response) => {
+                    HTTP.get(`${this.jour}/${pseudo}`).then((response) => {
                         // On vérifie qu'il y a des cours
-                        self.cours = [];
+                        var cours = [];
                         for (let key in response.data) {
-                            this.cours.push(response.data[key]);
+                            cours.push(response.data[key]);
                         }
-                    }).then(() => {
-                        self.cours.map((obj, index) => {
+                        return cours
+                    }).then((cours) => {
+                        cours.map((obj, index) => {
                             if (obj.fin) {
-                                self.cours[index].type = obj.type.toUpperCase();
+                                cours[index].type = obj.type.toUpperCase();
                             } else {
-                                self.cours[index].pascours = 1
+                                cours[index].pascours = 1
                             }
                         });
+                        if (pseudo === this.pseudo) {
+                            this.cours = cours;
+                        }else {
+                            this.coursFriend = cours;
+                        }
+
                         self.ajax = false;
                     }).catch(function (error) {
                         console.log(error);
                     });
                 }
+            },
+            removeFriend () {
+                store.commit('SET_PSEUDO_FRIEND', '')
             }
         }
     }
 </script>
-
 <style lang="scss">
     $green: #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
+    $orangeLight: #cc9144;
+    .cours {
+        display: flex;
+        .pseudo-cours {
+            display: block;
+            text-align: center;
+            background-color: $blueDark;
+            padding: 5px 0;
+            border-radius: 20px;
+            color: #fff;
+            width: 80%;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+        .remove-friend {
+            color: $orangeLight;
+            font-weight: 800;
+            margin-left: 5px;
+        }
+    }
+    .slim {
+        flex: 1;
+    }
+    .tuile {
+        margin: 5px;
+    }
+    .btn-pseudo-cours {
+        border: 0;
+    }
 
     .block-cours {
         width: 100%;
@@ -152,11 +189,14 @@
         &:hover {
             transform: scale(1.01);
         }
+    }
+    .plus-cours-container {
+        display: flex;
         .plus-cours {
             text-align: center;
             font-size: 1.5em;
             color: $green;
-            margin-top: 20px;
+            margin: auto;
         }
     }
 
@@ -171,11 +211,13 @@
             }
         }
         .top {
-            margin-top: -68px;
+            margin-top: -100px;
+            height: 100px;
             font-size: 2em;
             text-align: center;
             .nom {
                 color: #fff !important;
+                margin: auto;
             }
         }
     }

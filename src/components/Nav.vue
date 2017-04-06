@@ -25,6 +25,7 @@
                     </transition>
                 </div>
             </div>
+            <div class="blur" v-if="modalPseudo"></div>
         </div>
     </div>
 </template>
@@ -67,6 +68,9 @@
                 console.log(error);
             });
         },
+        computed: {
+            modalPseudo () { return store.state.modalPseudo}
+        },
         methods: {
             changeAccount () {
                 let pseudo = prompt('Pseudo intranet ?');
@@ -95,6 +99,19 @@
     $green : #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
+    .blur {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 3;
+    }
+    html {
+        overflow-x: hidden;
+    }
     .content{
         a {
             text-decoration: none;
@@ -149,7 +166,7 @@
         .contenu {
             min-height: calc(100vh - 280px);
             margin-top: 20px;
-            padding: 0 10px;
+            padding: 10px;
             .bouttons {
                 display: flex;
                 margin-bottom: 15px;
