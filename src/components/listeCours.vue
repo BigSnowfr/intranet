@@ -25,8 +25,10 @@
     import {HTTP} from '../api'
     import store from '../store'
     import tuileCours from './tuileCours.vue'
+    import { mapGetters } from 'vuex'
     export default {
         name: 'listeCours',
+        store,
         data () {
             return {}
         },
@@ -35,6 +37,12 @@
         },
         components: {
             tuileCours,
-        }
+        },
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
     }
 </script>

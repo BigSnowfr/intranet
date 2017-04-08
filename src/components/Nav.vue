@@ -35,8 +35,10 @@
     import moment from 'moment'
     import tuileCours from './tuileCours.vue'
     import store from '../store'
+    import { mapGetters } from 'vuex'
     export default {
-        name: 'app',
+        name: 'nav',
+        store,
         data () {
             return {
                 cours: [],
@@ -61,11 +63,12 @@
                 pseudo = prompt('Pseudo intranet ?');
                 localStorage.setItem('pseudo', pseudo);
             }
-            store.commit('SET_PSEUDO', pseudo);
             this.pseudo = pseudo;
+            this.$store.dispatch('definePseudo', pseudo);
             // Récupération de la météo
             var self = this;
             HTTP.get(`http://api.openweathermap.org/data/2.5/weather?q=Troyes,fr&appid=1f45e911b4f6d21aff7e30f65496a83e&lang=fr`).then((response) => {
+                // On passe la température en Celsius
                 response.data.main.temp =  parseInt(response.data.main.temp - 273.15, 10);
                 self.meteo = response.data;
             }).catch((err) => {
@@ -75,10 +78,12 @@
         mounted () {
             this.getPseudo();
         },
-        computed: {
-            modalPseudo () { return store.state.modalPseudo },
-            pseudo () { return store.state.mypseudo }
-        },
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
         methods: {
             getPseudo () {
                 HTTP.get(`user/${this.pseudo}`).then((response) => {
@@ -92,13 +97,13 @@
                 if (pseudo !== '') {
                     localStorage.setItem('pseudo', pseudo);
                     this.pseudo = pseudo;
-                    store.commit('SET_PSEUDO', pseudo);
+                    this.$store.dispatch('definePseudo', pseudo);
                     this.getPseudo();
                 }
             },
             changeJour(jour) {
                 let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain';
-                store.commit('SET_JOUR', jourAPI);
+                this.$store.dispatch('setDateActive', jourAPI);
             }
         },
         watch: {

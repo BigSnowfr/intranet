@@ -14,8 +14,10 @@
 <script>
     import moment from 'moment'
     import store from '../store'
+    import { mapGetters } from 'vuex'
     export default {
         name: 'app',
+        store,
         data () {
             return {
                 heure: '',
@@ -31,9 +33,12 @@
             let heureFinCours = moment(this.cour.hfin, 'HH:mm');
             if (moment(heure).isAfter(heureFinCours) && this.state.jour === 'edtjour') return this.coursPasse= true;
         },
-        computed: {
-            pseudoFriend () { return store.state.pseudoFriend}
-        }
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
     }
 
 </script>

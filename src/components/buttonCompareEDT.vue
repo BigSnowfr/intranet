@@ -8,6 +8,7 @@
 <script>
     import {HTTP} from '../api'
     import store from '../store'
+    import { mapGetters } from 'vuex'
     export default {
         name: 'buttonCompareEDT',
         data () {
@@ -15,11 +16,18 @@
                 state: store.state,
             }
         },
+        store,
         methods: {
             compareEDT () {
-               store.commit('SET_MODAL_PSEUDO');
+                this.$store.dispatch('toggleModalPseudo');
             }
-        }
+        },
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
     }
 </script>
 <style lang="scss">

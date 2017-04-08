@@ -2,14 +2,15 @@
     <div>
         <div v-if="!ajax" class="cours">
             <div class="slim">
-                <span v-if="pseudoFriend" class="pseudo-cours">{{pseudo}}</span>
+                <span v-if="pseudoFriend" class="pseudo-cours">{{mypseudo}}</span>
                 <liste-cours :coursProps="cours"></liste-cours>
                 <div class="block-cours plus-cours-container">
                     <p class="plus-cours">Votre journée est terminée</p>
                 </div>
             </div>
             <div class="slim" v-if="pseudoFriend">
-                <button class="pseudo-cours btn-pseudo-cours" @click="removeFriend">{{ pseudoFriend }} <span class="remove-friend">X</span></button>
+                <button class="pseudo-cours btn-pseudo-cours" @click="removeFriend">{{ pseudoFriend }} <span
+                        class="remove-friend">X</span></button>
                 <liste-cours :coursProps="coursFriend"></liste-cours>
                 <div class="block-cours plus-cours-container">
                     <p class="plus-cours">Votre journée est terminée</p>
@@ -25,6 +26,7 @@
 </template>
 <script>
     import {HTTP} from '../api'
+    import { mapGetters } from 'vuex'
     import moment from 'moment'
     import buttonCompareEDT from './buttonCompareEDT.vue'
     import modalPseudo from './modalPseudo.vue'
@@ -32,6 +34,7 @@
     import store from '../store'
     export default {
         name: 'app',
+        store,
         data () {
             return {
                 cours: [],
@@ -48,23 +51,21 @@
             modalPseudo,
             listeCours
         },
-        computed: {
-            jour () { return store.state.jour},
-            modalPseudo () { return store.state.modalPseudo},
-            mypseudo () { return store.state.mypseudo},
-            pseudoFriend () { return store.state.pseudoFriend}
-        },
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
         watch: {
-          jour () {
-              this.getClasses(this.pseudo);
-          },
+            jour () {
+                this.getClasses(this.pseudo);
+            },
             pseudoFriend () {
-              if(this.pseudoFriend !== '') {
-                  this.getClasses(this.pseudoFriend);
-              }
+                if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend);
             },
             mypseudo () {
-              this.getClasses(this.mypseudo);
+                this.getClasses(this.mypseudo);
             }
         },
         created () {
@@ -74,7 +75,7 @@
             if (pseudo === null) {
                 pseudo = prompt('Pseudo intranet ?');
                 localStorage.setItem('pseudo', pseudo);
-                store.commit('SET_PSEUDO', pseudo);
+                this.$store.dispatch('definePseudo', pseudo);
             }
             this.pseudo = pseudo;
             HTTP.get('user/' + this.pseudo).then((response) => {
@@ -93,9 +94,9 @@
                     let self = this;
                     this.ajax = true;
                     HTTP.get(`${this.jour}/${pseudo}`).then((response) => {
-                        if(response.data[0] === 'erreur') {
+                        if (response.data[0] === 'erreur') {
                             self.ajax = false;
-                            store.commit('SET_PSEUDO_FRIEND', '');
+                            self.$store.dispatch('definePseudoFriend', '');
                             alert('Aucun étudiant possède ce pseudo');
                             return;
                         }
@@ -113,7 +114,7 @@
                         });
                         if (pseudo === this.pseudo) {
                             this.cours = cours;
-                        }else {
+                        } else {
                             this.coursFriend = cours;
                         }
 
@@ -125,7 +126,7 @@
                 }
             },
             removeFriend () {
-                store.commit('SET_PSEUDO_FRIEND', '')
+                this.$store.dispatch('definePseudoFriend', '');
             }
         }
     }
@@ -154,12 +155,15 @@
             margin-left: 5px;
         }
     }
+
     .slim {
         flex: 1;
     }
+
     .tuile {
         margin: 5px;
     }
+
     .btn-pseudo-cours {
         border: 0;
     }
@@ -200,6 +204,7 @@
             transform: scale(1.01);
         }
     }
+
     .plus-cours-container {
         display: flex;
         .plus-cours {

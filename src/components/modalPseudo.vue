@@ -15,6 +15,7 @@
 <script>
     import {HTTP} from '../api'
     import store from '../store'
+    import { mapGetters } from 'vuex'
     export default {
         name: 'modalPseudo',
         data () {
@@ -23,20 +24,24 @@
                 pseudo_friend: ''
             }
         },
-        computed: {
-            modalPseudo () { return store.state.modalPseudo}
-        },
+        store,
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
         mounted () {
             document.getElementById("nom").focus();
         },
         methods: {
             addPseudo () {
-                store.commit('SET_PSEUDO_FRIEND', this.pseudo_friend);
-                store.commit('SET_MODAL_PSEUDO');
+                this.$store.dispatch('definePseudoFriend', this.pseudo_friend);
+                this.$store.dispatch('toggleModalPseudo');
 
             },
             closeModal () {
-                store.commit('SET_MODAL_PSEUDO');
+                this.$store.dispatch('toggleModalPseudo');
             }
         }
     }

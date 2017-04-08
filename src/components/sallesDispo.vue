@@ -14,8 +14,11 @@
 <script>
     import {HTTP} from '../api'
     import moment from 'moment'
+    import { mapGetters } from 'vuex'
+    import store from '../store'
     export default {
         name: 'sallesPrises',
+        store,
         data () {
             return {
                 sallesDispo: [],
@@ -29,9 +32,12 @@
         created () {
           this.heure = moment().format("HH:mm")
         },
-        mounted () {
-
-        }
+        computed: mapGetters([
+            'jour',
+            'mypseudo',
+            'modalPseudo',
+            'pseudoFriend'
+        ]),
     }
 </script>
 <style lang="scss">
