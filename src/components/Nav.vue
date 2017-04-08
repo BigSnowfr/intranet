@@ -20,9 +20,7 @@
                             Demain
                         </router-link>
                     </div>
-                    <transition name='slide-fade' mode='out-in'>
                         <router-view></router-view>
-                    </transition>
                 </div>
             </div>
             <div class="blur" v-if="modalPseudo"></div>
@@ -61,26 +59,35 @@
                 pseudo = prompt('Pseudo intranet ?');
                 localStorage.setItem('pseudo', pseudo);
             }
+            store.commit('SET_PSEUDO', pseudo);
             this.pseudo = pseudo;
-            HTTP.get('user/' + this.pseudo).then((response) => {
-                this.prenom = response.data.prenom;
-            }).catch(function (error) {
-                console.log(error);
-            });
+        },
+        mounted () {
+            this.getPseudo();
         },
         computed: {
-            modalPseudo () { return store.state.modalPseudo}
+            modalPseudo () { return store.state.modalPseudo },
+            pseudo () { return store.state.mypseudo }
         },
         methods: {
+            getPseudo () {
+                HTTP.get(`user/${this.pseudo}`).then((response) => {
+                    this.prenom = response.data.prenom;
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            },
             changeAccount () {
                 let pseudo = prompt('Pseudo intranet ?');
                 if (pseudo !== '') {
                     localStorage.setItem('pseudo', pseudo);
                     this.pseudo = pseudo;
+                    store.commit('SET_PSEUDO', pseudo);
+                    this.getPseudo();
                 }
             },
             changeJour(jour) {
-                let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain' ;
+                let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain';
                 store.commit('SET_JOUR', jourAPI);
             }
         },
@@ -96,7 +103,7 @@
 </script>
 
 <style lang="scss">
-    $green : #27B07C;
+    $green: #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
     .blur {
@@ -109,10 +116,12 @@
         opacity: 0.5;
         z-index: 3;
     }
+
     html {
         overflow-x: hidden;
     }
-    .content{
+
+    .content {
         a {
             text-decoration: none;
             &:hover, &:active {
@@ -134,7 +143,7 @@
             display: flex;
             flex-direction: column;
             background-color: $blue;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
             .bouton {
                 background-color: transparent;
                 border: 0;
@@ -207,5 +216,52 @@
                 }
             }
         }
+    }
+    .mint-swipe, .mint-swipe-items-wrap {
+        overflow: hidden;
+        position: relative;
+        height: 100%
+    }
+
+    .mint-swipe-items-wrap {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+    }
+
+    .mint-swipe-items-wrap > div {
+        position: absolute;
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+        width: 100%;
+        height: 100%;
+        display: none
+    }
+
+    .mint-swipe-items-wrap > div.is-active {
+        display: block;
+        -webkit-transform: none;
+        transform: none
+    }
+
+    .mint-swipe-indicators {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%)
+    }
+
+    .mint-swipe-indicator {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 100%;
+        background: #000;
+        opacity: .2;
+        margin: 0 3px
+    }
+
+    .mint-swipe-indicator.is-active {
+        background: #fff
     }
 </style>

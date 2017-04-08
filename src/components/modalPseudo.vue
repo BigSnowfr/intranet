@@ -26,6 +26,9 @@
         computed: {
             modalPseudo () { return store.state.modalPseudo}
         },
+        mounted () {
+            document.getElementById("nom").focus();
+        },
         methods: {
             addPseudo () {
                 store.commit('SET_PSEUDO_FRIEND', this.pseudo_friend);

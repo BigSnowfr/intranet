@@ -51,6 +51,7 @@
         computed: {
             jour () { return store.state.jour},
             modalPseudo () { return store.state.modalPseudo},
+            mypseudo () { return store.state.mypseudo},
             pseudoFriend () { return store.state.pseudoFriend}
         },
         watch: {
@@ -61,6 +62,9 @@
               if(this.pseudoFriend !== '') {
                   this.getClasses(this.pseudoFriend);
               }
+            },
+            mypseudo () {
+              this.getClasses(this.mypseudo);
             }
         },
         created () {
@@ -70,6 +74,7 @@
             if (pseudo === null) {
                 pseudo = prompt('Pseudo intranet ?');
                 localStorage.setItem('pseudo', pseudo);
+                store.commit('SET_PSEUDO', pseudo);
             }
             this.pseudo = pseudo;
             HTTP.get('user/' + this.pseudo).then((response) => {
@@ -88,13 +93,17 @@
                     let self = this;
                     this.ajax = true;
                     HTTP.get(`${this.jour}/${pseudo}`).then((response) => {
+                        if(response.data[0] === 'erreur') {
+                            self.ajax = false;
+                            store.commit('SET_PSEUDO_FRIEND', '');
+                            alert('Aucun étudiant possède ce pseudo');
+                            return;
+                        }
                         // On vérifie qu'il y a des cours
                         var cours = [];
                         for (let key in response.data) {
                             cours.push(response.data[key]);
                         }
-                        return cours
-                    }).then((cours) => {
                         cours.map((obj, index) => {
                             if (obj.fin) {
                                 cours[index].type = obj.type.toUpperCase();
@@ -109,6 +118,7 @@
                         }
 
                         self.ajax = false;
+                        return cours
                     }).catch(function (error) {
                         console.log(error);
                     });

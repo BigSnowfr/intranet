@@ -7,6 +7,7 @@ let store = new Vuex.Store({
     state: {
         jour: 'edtjour',
         modalPseudo: false,
+        mypseudo: '',
         pseudoFriend: ''
     },
     mutations: {
@@ -15,6 +16,9 @@ let store = new Vuex.Store({
         },
         SET_MODAL_PSEUDO (state) {
             state.modalPseudo = !state.modalPseudo;
+        },
+        SET_PSEUDO (state, valeur) {
+            state.mypseudo = valeur;
         },
         SET_PSEUDO_FRIEND (state, valeur) {
             state.pseudoFriend = valeur;

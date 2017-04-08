@@ -1,11 +1,11 @@
-import Vue from 'vue'
+import Vue from 'vue';
 import Vuex from 'vuex';
-import App from './components/App.vue'
-import sallesDispo from './components/sallesDispo.vue'
-import Nav from './components/Nav.vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import VueRouter from 'vue-router'
+import App from './components/App.vue';
+import sallesDispo from './components/sallesDispo.vue';
+import Nav from './components/Nav.vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+import VueRouter from 'vue-router';
 
 Vue.use(Vuex);
 Vue.use(VueRouter);

@@ -27,8 +27,9 @@
             cour: Object
         },
         created () {
-            this.heure = moment().format('HH:mm');
-            if (moment(this.heure).isAfter(this.cour.hfin)) return this.coursPasse= true;
+            let heure = moment();
+            let heureFinCours = moment(this.cour.hfin, 'HH:mm');
+            if (moment(heure).isAfter(heureFinCours) && this.state.jour === 'edtjour') return this.coursPasse= true;
         },
         computed: {
             pseudoFriend () { return store.state.pseudoFriend}
