@@ -1,5 +1,6 @@
 <template>
     <div class="pas-cours">
+        <button-jour></button-jour>
         <div class="top">
             <span class="titre">Il est {{ heure }}</span>
             <span class="sous-titre">Vous pouvez travailler dans ces salles</span>
@@ -15,9 +16,10 @@
     import {HTTP} from '../api'
     import moment from 'moment'
     import { mapGetters } from 'vuex'
+    import buttonJour from './buttonJour.vue'
     import store from '../store'
     export default {
-        name: 'sallesPrises',
+        name: 'sallesDispo',
         store,
         data () {
             return {
@@ -25,6 +27,9 @@
                 heure: '',
                 sallesMMI: ['STUD', 'H001', 'H005', 'H006', 'H007', 'H008', 'H016', 'H201', 'H205', 'H101', 'H103', 'H104', 'H105']
             }
+        },
+        components: {
+            buttonJour
         },
         props: {
             salles: Object

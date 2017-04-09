@@ -1,5 +1,6 @@
 <template>
     <div>
+        <button-jour></button-jour>
         <div v-if="!ajax" class="cours">
             <div class="slim">
                 <span v-if="pseudoFriend" class="pseudo-cours">{{mypseudo}}</span>
@@ -17,7 +18,6 @@
                 </div>
             </div>
             <button-compare-e-d-t></button-compare-e-d-t>
-            <modal-pseudo v-if="modalPseudo"></modal-pseudo>
         </div>
         <div class="loading text-center" v-else>
             <img :src="'http://195.83.128.55/~mmi15b08/intranet/assets/ring.svg'" alt="Loading">
@@ -31,6 +31,7 @@
     import buttonCompareEDT from './buttonCompareEDT.vue'
     import modalPseudo from './modalPseudo.vue'
     import listeCours from './listeCours.vue'
+    import buttonJour from './buttonJour.vue'
     import store from '../store'
     export default {
         name: 'app',
@@ -49,7 +50,8 @@
         components: {
             buttonCompareEDT,
             modalPseudo,
-            listeCours
+            listeCours,
+            buttonJour
         },
         computed: mapGetters([
             'jour',
@@ -59,7 +61,7 @@
         ]),
         watch: {
             jour () {
-                this.getClasses(this.pseudo);
+                this.getClasses(this.mypseudo);
             },
             pseudoFriend () {
                 if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend);
@@ -71,19 +73,7 @@
         created () {
             moment.locale('fr');
             this.date = moment().format('dddd D MMMM YYYY');
-            let pseudo = localStorage.getItem('pseudo');
-            if (pseudo === null) {
-                pseudo = prompt('Pseudo intranet ?');
-                localStorage.setItem('pseudo', pseudo);
-                this.$store.dispatch('definePseudo', pseudo);
-            }
-            this.pseudo = pseudo;
-            HTTP.get('user/' + this.pseudo).then((response) => {
-                this.prenom = response.data.prenom;
-            }).catch(function (error) {
-                console.log(error);
-            });
-            this.getClasses(this.pseudo);
+            this.getClasses(this.mypseudo);
             if (this.pseudoFriend !== '') {
                 this.getClasses(this.pseudoFriend);
             }

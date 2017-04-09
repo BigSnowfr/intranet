@@ -19,14 +19,15 @@
         store,
         methods: {
             compareEDT () {
-                this.$store.dispatch('toggleModalPseudo');
+                this.$store.dispatch('toggleModalPseudo', 'friend');
             }
         },
         computed: mapGetters([
             'jour',
             'mypseudo',
             'modalPseudo',
-            'pseudoFriend'
+            'pseudoFriend',
+            'menuVisible'
         ]),
     }
 </script>

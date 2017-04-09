@@ -1,31 +1,27 @@
 <template>
     <div id="app" class="content">
         <div class="header">
-            <div>
-                <button @click="changeAccount" class="bouton titre">Bonjour {{ prenom }}</button>
-            </div>
-            <p class="date">{{ date }}</p>
-            <p class="meteo">{{ meteo.main.temp }}° C - <span class="meteo-descritpion">{{ meteo.weather[0].description }}</span></p>
-        </div>
-        <div v-if="pseudo">
-            <div class="loaded">
-                <div class="contenu">
-                    <div class="bouttons">
-                        <router-link to='/salles' class='boutton' exact>
-                            Salles
-                        </router-link>
-                        <router-link to='/' class='boutton' exact>
-                            Ma Journée
-                        </router-link>
-                        <router-link to='/demain' class='boutton' exact>
-                            Demain
-                        </router-link>
-                    </div>
-                        <router-view></router-view>
+            <div class="header-top">
+                <button class="menu-group" @click="toggleMenu">
+                    <span class="menu-bar menu-long-bar"></span>
+                    <span class="menu-bar menu-short-bar"></span>
+                </button>
+                <div class="titre">
+                    <button @click="changeAccount" class="bouton">Bonjour {{ etudiant.prenom }}</button>
                 </div>
             </div>
-            <div class="blur" v-if="modalPseudo"></div>
+            <p class="date">{{ date }}</p>
         </div>
+        <div v-if="mypseudo">
+            <div class="loaded">
+                <div class="contenu">
+                    <router-view></router-view>
+                </div>
+            </div>
+        </div>
+        <modal-pseudo v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></modal-pseudo>
+        <div class="blur"  v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
+        <side-bar></side-bar>
     </div>
 </template>
 
@@ -34,8 +30,11 @@
     import sallesDispo from './sallesDispo.vue'
     import moment from 'moment'
     import tuileCours from './tuileCours.vue'
+    import modalPseudo from './modalPseudo.vue'
     import store from '../store'
     import { mapGetters } from 'vuex'
+    import sideBar from './sideBar.vue'
+
     export default {
         name: 'nav',
         store,
@@ -48,67 +47,70 @@
                 date: '',
                 salles: [],
                 ajaxSalles: false,
-                meteo: {}
             }
         },
         components: {
             sallesDispo,
-            tuileCours
+            tuileCours,
+            sideBar,
+            modalPseudo
         },
         created () {
             moment.locale('fr');
             this.date = moment().format('dddd D MMMM YYYY');
+
             let pseudo = localStorage.getItem('pseudo');
-            if (pseudo === null) {
-                pseudo = prompt('Pseudo intranet ?');
-                localStorage.setItem('pseudo', pseudo);
+            if(pseudo) {
+                this.$store.dispatch('definePseudo', pseudo);
             }
-            this.pseudo = pseudo;
-            this.$store.dispatch('definePseudo', pseudo);
+
             // Récupération de la météo
             var self = this;
             HTTP.get(`http://api.openweathermap.org/data/2.5/weather?q=Troyes,fr&appid=1f45e911b4f6d21aff7e30f65496a83e&lang=fr`).then((response) => {
                 // On passe la température en Celsius
                 response.data.main.temp =  parseInt(response.data.main.temp - 273.15, 10);
-                self.meteo = response.data;
+                self.$store.dispatch('setWeather', response.data)
             }).catch((err) => {
                 console.log(err)
             });
         },
         mounted () {
-            this.getPseudo();
+            if(this.mypseudo !== '') {
+                this.getPseudo();
+            }else {
+                this.$store.dispatch('toggleModalPseudo', 'me');
+            }
         },
         computed: mapGetters([
             'jour',
             'mypseudo',
             'modalPseudo',
-            'pseudoFriend'
+            'pseudoFriend',
+            'menuVisible',
+            'etudiant'
         ]),
         methods: {
             getPseudo () {
-                HTTP.get(`user/${this.pseudo}`).then((response) => {
-                    this.prenom = response.data.prenom;
+                HTTP.get(`user/${this.mypseudo}`).then((response) => {
+                    this.$store.dispatch('defineEtudiant', response.data)
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
             changeAccount () {
-                let pseudo = prompt('Pseudo intranet ?');
-                if (pseudo !== '') {
-                    localStorage.setItem('pseudo', pseudo);
-                    this.pseudo = pseudo;
-                    this.$store.dispatch('definePseudo', pseudo);
-                    this.getPseudo();
-                }
+                this.$store.dispatch('toggleModalPseudo', 'me');
             },
             changeJour(jour) {
                 let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain';
                 this.$store.dispatch('setDateActive', jourAPI);
+            },
+            toggleMenu () {
+                this.$store.dispatch('toggleMenu');
             }
         },
         watch: {
             pseudo () {
-                if (this.pseudo === null || this.pseudo === 'null') {
+                if (this.mypseudo === null) {
                     this.changeAccount();
                 }
             },
@@ -129,7 +131,7 @@
         right: 0;
         background-color: #000;
         opacity: 0.5;
-        z-index: 3;
+        z-index: 13;
     }
 
     html {
@@ -147,18 +149,48 @@
         user-select: none;
         font-family: 'Open Sans', sans-serif;
         .loading {
-            margin-top: 200px;
+            margin-top: 60px;
         }
         .header {
             width: 100%;
-            height: 150px;
+            height: 120px;
             color: #ffffff;
             padding-top: 2vh;
             text-align: center;
-            display: flex;
             flex-direction: column;
             background-color: $blue;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            .header-top {
+                display: flex;
+                .menu-group {
+                    margin-left: 10px;
+                    margin-right: 5px;
+                    padding-top: 3px;
+                    background-color: transparent;
+                    border: 0;
+                    z-index: 10;
+                    .menu-bar {
+                        background-color: #fff;
+                        height: 3px;
+                        margin: 5px 0;
+                        border: 1px solid #fff;
+                        display: block;
+                        border-radius: 10px;
+                    }
+                    .menu-long-bar {
+                        width: 35px;
+                    }
+                    .menu-short-bar {
+                        width: 25px;
+                    }
+                }
+                .titre {
+                    font-size: 2em;
+                    width: 100%;
+                    text-align: center;
+                    margin-left: -50px;
+                }
+            }
             .meteo-descritpion {
                 text-transform: capitalize;
             }
@@ -168,12 +200,6 @@
             }
             .sous-titre {
                 margin: auto;
-            }
-            .titre {
-                font-size: 2em;
-                width: 100vw;
-                display: inline-block;
-                float: left;
             }
             img {
                 height: 40px;

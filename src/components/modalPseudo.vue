@@ -1,13 +1,13 @@
 <template>
-    <div class="modal-pseudo" v-if="modalPseudo">
+    <div class="modal-pseudo">
         <div class="modal-pseudo-contenu">
             <p class="text">
-                Comparez votre emploi du temps <button class="modal-pseudo-close" @click="closeModal">X</button>
+                {{ title }} <button class="modal-pseudo-close" @click="closeModal">X</button>
             </p>
             <form class="formulaire">
-                <label for="nom">Pseudo de votre ami</label>
-                <input class="input-pseudo" type="text" id="nom" placeholder="Pseudo" v-model="pseudo_friend" autofocus>
-                <button class="btn-valider" @click.prevent="addPseudo">Comparer notre journée</button>
+                <label for="nom">{{label}}</label>
+                <input class="input-pseudo" type="text" id="nom" placeholder="Pseudo" v-model="pseudo" autofocus>
+                <button class="btn-valider" @click.prevent="addPseudo">{{ button }}</button>
             </form>
         </div>
     </div>
@@ -21,7 +21,10 @@
         data () {
             return {
                 state: store.state,
-                pseudo_friend: ''
+                pseudo: '',
+                title: 'Connexion',
+                label: 'Entrer votre pseudo intranet',
+                button: 'Valider'
             }
         },
         store,
@@ -33,15 +36,32 @@
         ]),
         mounted () {
             document.getElementById("nom").focus();
+            if(this.modalPseudo === 'friend') {
+                this.title = 'Comparer nos emplois du temps';
+                this.label = 'Entrer le pseudo de votre ami';
+                this.button = 'Comparer'
+            }
         },
         methods: {
             addPseudo () {
-                this.$store.dispatch('definePseudoFriend', this.pseudo_friend);
-                this.$store.dispatch('toggleModalPseudo');
-
+                if(this.pseudo !== '') {
+                    if (this.modalPseudo === 'friend') {
+                        var pseudo = 'definePseudoFriend'
+                    } else {
+                        var pseudo = 'definePseudo';
+                        localStorage.setItem('pseudo', this.pseudo);
+                        HTTP.get(`user/${this.pseudo}`).then((response) => {
+                            this.$store.dispatch('defineEtudiant', response.data)
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                    }
+                    this.$store.dispatch(pseudo, this.pseudo);
+                    this.$store.dispatch('toggleModalPseudo');
+                }
             },
             closeModal () {
-                this.$store.dispatch('toggleModalPseudo');
+                this.$store.dispatch('toggleModalPseudo', '');
             }
         }
     }
@@ -50,6 +70,7 @@
     $green: #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
+    $blueDarker: #4b648e;
     $orange: #cc713c;
     .modal-pseudo {
         overflow: hidden;
@@ -58,7 +79,7 @@
         right: 10px;
         left: 10px;
         bottom: 0;
-        z-index: 4;
+        z-index: 14;
         display: flex;
         .modal-pseudo-contenu {
             background-color: gainsboro;
@@ -101,6 +122,10 @@
                     background-color: $blueDark;
                     color: #fff;
                     height: 45px;
+                    transition: 0.3s ease;
+                    &:active {
+                        background-color: $blueDarker;
+                    }
                 }
             }
         }
