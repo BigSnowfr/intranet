@@ -5,3 +5,4 @@ export const SET_PSEUDO_FRIEND = 'SET_PSEUDO_FRIEND';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 export const SET_ETUDIANT = 'SET_ETUDIANT';
 export const SET_WEATHER = 'SET_WEATHER';
+export const SET_MESSAGES = 'SET_MESSAGES';

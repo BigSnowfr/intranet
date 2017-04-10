@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="liste-info">
         <button-jour></button-jour>
         <div v-if="!ajax" class="cours">
             <div class="slim">
-                <span v-if="pseudoFriend" class="pseudo-cours">{{mypseudo}}</span>
+                <span v-if="pseudoFriend" class="pseudo-cours">{{etudiant.prenom}}</span>
                 <liste-cours :coursProps="cours"></liste-cours>
                 <div class="block-cours plus-cours-container">
                     <p class="plus-cours">Votre journée est terminée</p>
@@ -25,14 +25,14 @@
     </div>
 </template>
 <script>
-    import {HTTP} from '../api'
+    import {HTTP} from '../../api'
     import { mapGetters } from 'vuex'
     import moment from 'moment'
     import buttonCompareEDT from './buttonCompareEDT.vue'
-    import modalPseudo from './modalPseudo.vue'
+    import modalPseudo from '../modalPseudo.vue'
     import listeCours from './listeCours.vue'
     import buttonJour from './buttonJour.vue'
-    import store from '../store'
+    import store from '../../store/index'
     export default {
         name: 'app',
         store,
@@ -40,8 +40,6 @@
             return {
                 cours: [],
                 coursFriend: [],
-                pseudo: '',
-                prenom: '',
                 ajax: false,
                 date: '',
                 state: store.state,
@@ -57,7 +55,8 @@
             'jour',
             'mypseudo',
             'modalPseudo',
-            'pseudoFriend'
+            'pseudoFriend',
+            'etudiant'
         ]),
         watch: {
             jour () {
@@ -102,7 +101,7 @@
                                 cours[index].pascours = 1
                             }
                         });
-                        if (pseudo === this.pseudo) {
+                        if (pseudo === this.mypseudo) {
                             this.cours = cours;
                         } else {
                             this.coursFriend = cours;
@@ -197,6 +196,7 @@
 
     .plus-cours-container {
         display: flex;
+        box-shadow: none;
         .plus-cours {
             text-align: center;
             font-size: 1.5em;

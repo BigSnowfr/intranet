@@ -98,9 +98,8 @@
                 font-weight: 800;
                 color: $orange;
                 font-size: 24px;
-                position: absolute;
-                right: 5px;
-                margin-top: -20px;
+                float: right;
+                margin-top: -9px;
             }
             .formulaire {
                 padding: 10px;

@@ -1,6 +1,6 @@
 <template>
     <div class="weather">
-        <span class="temperature">{{ weather.main.temp }}°</span>
+        <p class="temperature">{{ weather.main.temp }}° <br> <span class="ville-name">{{ weather.name }}</span></p>
 
         <div class="icon sun-shower" v-if="weather.weather[0].main == 'Rain'">
             <div class="cloud"></div>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div class="icon cloudy" v-if="weather.weather[0].main == 'Clouds'">
+        <div class="icon cloudy" v-if="weather.weather[0].main == 'Clouds' || weather.weather[0].main == 'Mist'">
             <div class="cloud"></div>
             <div class="cloud"></div>
         </div>
@@ -45,8 +45,8 @@
 </template>
 
 <script>
-    import {HTTP} from '../api'
-    import store from '../store'
+    import {HTTP} from '../../api'
+    import store from '../../store/index'
     import { mapGetters } from 'vuex'
     import weather from './weather.vue'
     export default {
@@ -80,10 +80,12 @@
     .weather {
         height: 25%;
         display: flex;
+        .ville-name {
+            font-size: 14px;
+        }
         .temperature {
             font-size: 2.5em;
             flex: 1;
-            text-align: center;
             color: #fff;
             margin: auto 0 auto 20px;;
         }
@@ -102,7 +104,7 @@
             height: 2.5em;
             margin: -1.25em;
             background-color: transparent;
-            border-radius: 50%;
+            border-radius: 3em;
             box-shadow: 0 0 0 0.375em #fff;
             animation: spin 20s infinite linear;
         }

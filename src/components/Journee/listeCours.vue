@@ -22,8 +22,8 @@
     </div>
 </template>
 <script>
-    import {HTTP} from '../api'
-    import store from '../store'
+    import {HTTP} from '../../api'
+    import store from '../../store/index'
     import tuileCours from './tuileCours.vue'
     import { mapGetters } from 'vuex'
     export default {

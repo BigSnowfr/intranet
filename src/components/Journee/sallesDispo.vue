@@ -1,5 +1,5 @@
 <template>
-    <div class="pas-cours">
+    <div class="pas-cours liste-info">
         <button-jour></button-jour>
         <div class="top">
             <span class="titre">Il est {{ heure }}</span>
@@ -13,11 +13,11 @@
     </div>
 </template>
 <script>
-    import {HTTP} from '../api'
+    import {HTTP} from '../../api'
     import moment from 'moment'
     import { mapGetters } from 'vuex'
     import buttonJour from './buttonJour.vue'
-    import store from '../store'
+    import store from '../../store/index'
     export default {
         name: 'sallesDispo',
         store,

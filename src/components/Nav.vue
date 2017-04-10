@@ -1,39 +1,41 @@
 <template>
-    <div id="app" class="content">
-        <div class="header">
-            <div class="header-top">
-                <button class="menu-group" @click="toggleMenu">
-                    <span class="menu-bar menu-long-bar"></span>
-                    <span class="menu-bar menu-short-bar"></span>
-                </button>
-                <div class="titre">
-                    <button @click="changeAccount" class="bouton">Bonjour {{ etudiant.prenom }}</button>
+    <v-touch v-on:swiperight="onSwipeRight" v-on:swipeleft="onSwipeLeft">
+        <div id="app" class="content">
+            <div class="header">
+                <div class="header-top">
+                    <button class="menu-group" @click="toggleMenu">
+                        <span class="menu-bar menu-long-bar"></span>
+                        <span class="menu-bar menu-short-bar"></span>
+                    </button>
+                    <div class="titre">
+                        <button @click="changeAccount" class="bouton">Bonjour {{ etudiant.prenom }}</button>
+                    </div>
+                </div>
+                <p class="date">{{ date }}</p>
+            </div>
+            <div v-if="mypseudo">
+                <div class="loaded">
+                    <div class="contenu">
+                        <router-view></router-view>
+                    </div>
                 </div>
             </div>
-            <p class="date">{{ date }}</p>
+            <modal-pseudo v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></modal-pseudo>
+            <div class="blur"  v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
+            <side-bar></side-bar>
         </div>
-        <div v-if="mypseudo">
-            <div class="loaded">
-                <div class="contenu">
-                    <router-view></router-view>
-                </div>
-            </div>
-        </div>
-        <modal-pseudo v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></modal-pseudo>
-        <div class="blur"  v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
-        <side-bar></side-bar>
-    </div>
+    </v-touch>
 </template>
 
 <script>
     import {HTTP} from '../api'
-    import sallesDispo from './sallesDispo.vue'
+    import sallesDispo from './Journee/sallesDispo.vue'
     import moment from 'moment'
-    import tuileCours from './tuileCours.vue'
+    import tuileCours from './Journee/tuileCours.vue'
     import modalPseudo from './modalPseudo.vue'
     import store from '../store'
     import { mapGetters } from 'vuex'
-    import sideBar from './sideBar.vue'
+    import sideBar from './Menu/sideBar.vue'
 
     export default {
         name: 'nav',
@@ -73,6 +75,13 @@
             }).catch((err) => {
                 console.log(err)
             });
+
+            // Récupération des messages
+            HTTP.get(`messages/${this.mypseudo}`).then((response) => {
+                this.$store.dispatch('setMessages', response.data);
+            }).catch((error) => {
+                console.log(error)
+            });
         },
         mounted () {
             if(this.mypseudo !== '') {
@@ -96,6 +105,12 @@
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            onSwipeRight () {
+                if (!this.menuVisible) this.$store.dispatch('toggleMenu');
+            },
+            onSwipeLeft () {
+                if (this.menuVisible) this.$store.dispatch('toggleMenu');
             },
             changeAccount () {
                 this.$store.dispatch('toggleModalPseudo', 'me');
@@ -134,6 +149,10 @@
         z-index: 13;
     }
 
+    *:focus {
+        outline: none;
+    }
+
     html {
         overflow-x: hidden;
     }
@@ -146,6 +165,7 @@
                 transform: scale(1.01);
             }
         }
+        min-height: 100vh;
         user-select: none;
         font-family: 'Open Sans', sans-serif;
         .loading {
@@ -153,13 +173,16 @@
         }
         .header {
             width: 100%;
-            height: 120px;
+            max-height: 120px;
             color: #ffffff;
             padding-top: 2vh;
             text-align: center;
             flex-direction: column;
             background-color: $blue;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            position: fixed;
+            z-index: 10;
+            margin-top: -20px;
             .header-top {
                 display: flex;
                 .menu-group {
@@ -207,6 +230,7 @@
             .date {
                 font-size: 1.4em;
                 margin-top: 15px;
+                padding-bottom: 20px;
             }
             .sous-titre {
                 font-size: 1.4em;
@@ -217,9 +241,10 @@
             }
         }
         .contenu {
-            min-height: calc(100vh - 280px);
+            min-height: calc(100vh - 140px);
             margin-top: 20px;
-            padding: 10px;
+            padding: 10px 10px 0 10px;
+            -webkit-overflow-scrolling: touch;
             .bouttons {
                 display: flex;
                 margin-bottom: 15px;
