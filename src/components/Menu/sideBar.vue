@@ -26,7 +26,10 @@
                     </router-link>
                 </li>
             </ul>
-            <a class="copyright" href="https://www.etienne-fontaine.fr" target="_blank">Made by Etienne FONTAINE</a>
+            <div class="copyright">
+                <a href="https://www.etienne-fontaine.fr" target="_blank">Made by Etienne FONTAINE</a>
+                <img class="logo-iut" src="http://195.83.128.55/~mmi15b08/intranet/dist/iut.png" alt="Logo IUT">
+            </div>
         </div>
         <button class="side-bar-away" @click="toggleMenu" v-bind:class="{ close: !menuVisible, closeAway: !menuVisible }"></button>
     </div>
@@ -105,13 +108,17 @@
         position: fixed;
         box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
         .copyright {
-            color: #fff;
             position: absolute;
             bottom: 5px;
             display: block;
             right: 0;
             left: 0;
             text-align: center;
+            font-size: 12px;
+            a {
+                color: #fff;
+                margin-right: 5px;
+            }
         }
         .liste-top {
             padding-left: 0;
@@ -129,6 +136,7 @@
         }
         .liste-items {
             margin-top: 60px;
+            padding-left: 15px;
             .liste-item {
                 list-style: none;
                 margin-bottom: 35px;

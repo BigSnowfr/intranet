@@ -5,7 +5,7 @@
                 <tuile-cours :cour="cour" v-if="cour.hfin !== '12:30'"></tuile-cours>
                 <div v-else>
                     <tuile-cours :cour="cour"></tuile-cours>
-                    <a href="https://www.google.fr/maps/search/48.268101,+4.070629/@48.2684398,4.0715042,17.25z"
+                    <a href="https://www.google.fr/maps/place/CROUS+Restaurant+Universitaire/@48.2681027,4.0708735,18.46z/data=!4m5!3m4!1s0x0:0x8db035bfe8f37f27!8m2!3d48.2681183!4d4.0702991"
                        target="_blank">
                         <div class="block-cours food-container">
                             <div class="image">

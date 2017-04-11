@@ -109,6 +109,7 @@
     .liste-info {
         height: 100%;
         overflow-y: scroll;
+        overflow-x: hidden;
         margin-top: 110px;
     }
 

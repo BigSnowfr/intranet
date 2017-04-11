@@ -32,7 +32,7 @@
     import sallesDispo from './Journee/sallesDispo.vue'
     import moment from 'moment'
     import tuileCours from './Journee/tuileCours.vue'
-    import modalPseudo from './modalPseudo.vue'
+    import modalPseudo from './ModalPseudo/modalPseudo.vue'
     import store from '../store'
     import { mapGetters } from 'vuex'
     import sideBar from './Menu/sideBar.vue'
@@ -75,13 +75,6 @@
             }).catch((err) => {
                 console.log(err)
             });
-
-            // Récupération des messages
-            HTTP.get(`messages/${this.mypseudo}`).then((response) => {
-                this.$store.dispatch('setMessages', response.data);
-            }).catch((error) => {
-                console.log(error)
-            });
         },
         mounted () {
             if(this.mypseudo !== '') {
@@ -101,7 +94,13 @@
         methods: {
             getPseudo () {
                 HTTP.get(`user/${this.mypseudo}`).then((response) => {
-                    this.$store.dispatch('defineEtudiant', response.data)
+                    this.$store.dispatch('defineEtudiant', response.data);
+                    // Récupération des messages
+                    HTTP.get(`messages/${this.mypseudo}`).then((response) => {
+                        this.$store.dispatch('setMessages', response.data);
+                    }).catch((error) => {
+                        console.log(error)
+                    });
                 }).catch(function (error) {
                     console.log(error);
                 });

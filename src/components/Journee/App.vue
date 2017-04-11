@@ -29,7 +29,7 @@
     import { mapGetters } from 'vuex'
     import moment from 'moment'
     import buttonCompareEDT from './buttonCompareEDT.vue'
-    import modalPseudo from '../modalPseudo.vue'
+    import modalPseudo from '../ModalPseudo/modalPseudo.vue'
     import listeCours from './listeCours.vue'
     import buttonJour from './buttonJour.vue'
     import store from '../../store/index'
