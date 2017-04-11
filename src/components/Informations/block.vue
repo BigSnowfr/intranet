@@ -1,5 +1,5 @@
 <template>
-    <button class="block-information" @click="toggleContent">
+    <button class="block-information" :id="id" @click="toggleContent">
         <div class="information-visible">
             <p class="titre">{{ titre }}</p>
             <img class="image-information" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/' + image" alt="Wifi">
@@ -25,11 +25,14 @@
         props: {
             titre: String,
             image: String,
-            content: String
+            content: String,
+            id: Number
         },
         methods: {
             toggleContent () {
                 this.visible = !this.visible;
+                let position = document.getElementById(this.id).offsetTop;
+                window.scroll(0, position - 140);
             }
         },
     }

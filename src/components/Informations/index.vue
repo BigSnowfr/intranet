@@ -1,6 +1,7 @@
 <template>
     <div class="liste-info">
         <block
+                :id=1
                 :titre="'Certficat de scolarité'"
                 :image="'file.svg'"
                 :content="`
@@ -14,6 +15,7 @@
                 `"
         ></block>
         <block
+                :id=2
                 :titre="'Connexion Wifi EDUROAM'"
                 :image="'wifi.svg'"
                 :content="`
@@ -28,6 +30,7 @@
                 `"
         ></block>
         <block
+                :id=3
                 :titre="'Github Student Pack'"
                 :image="'github.svg'"
                 :content="`
@@ -38,6 +41,7 @@
                 `"
         ></block>
         <block
+                :id=4
                 :titre="'Microsoft Pack Office'"
                 :image="'windows.svg'"
                 :content="`
@@ -48,6 +52,7 @@
                 `"
         ></block>
         <block
+                :id=5
                 :titre="'Récupérer ses mails URCA'"
                 :image="'mail.svg'"
                 :content="`

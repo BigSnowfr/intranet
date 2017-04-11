@@ -15,7 +15,7 @@
                                 <input type="radio" name="radio" v-model="pseudo_friend" :value="ami"/>
                                 <div class="control__indicator"></div>
                             </label>
-                            <button class="delete-friend" @click.prevent="removeFriend(index)"><img src="../../assets/trash.svg" alt="Corbeille"></button>
+                            <button class="delete-friend" @click.prevent="removeFriend(index)"><img src="http://195.83.128.55/~mmi15b08/intranet/dist/trash.svg" alt="Corbeille"></button>
                         </div>
                     </div>
                 </div>

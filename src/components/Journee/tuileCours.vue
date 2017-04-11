@@ -56,5 +56,6 @@
 <style lang="scss">
     .cours-passe {
         opacity: 0.3;
+        box-shadow: none;
     }
 </style>
