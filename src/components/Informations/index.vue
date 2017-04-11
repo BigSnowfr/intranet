@@ -1,5 +1,6 @@
 <template>
     <div class="liste-info">
+        <h2 class="section-title">Informations</h2>
         <block
                 :id=1
                 :titre="'Certficat de scolarité'"
@@ -117,5 +118,10 @@
         overflow-x: hidden;
         margin-top: 110px;
     }
-
+    .section-title {
+        text-align: center;
+        font-size: 1.5em;
+        color: $blue;
+        margin-bottom: 15px;
+    }
 </style>

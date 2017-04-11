@@ -20,6 +20,12 @@
                     </router-link>
                 </li>
                 <li class="liste-item">
+                    <router-link to='/enseignants' exact>
+                        <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/user.svg" alt="Enseignants">
+                        <span>Enseignants</span>
+                    </router-link>
+                </li>
+                <li class="liste-item">
                     <router-link to='/informations' exact>
                         <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/info.svg" alt="Informations">
                         <span>Informations</span>
@@ -192,6 +198,9 @@
     @media screen and (max-height: 450px){
         .side-bar .liste-items {
             margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
     }
 </style>

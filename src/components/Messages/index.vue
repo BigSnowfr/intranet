@@ -1,5 +1,6 @@
 <template>
     <div class="messages liste-info">
+        <h2 class="section-title">Messages</h2>
         <block v-for="(message, index) in messages" :key="index" :message="message"></block>
     </div>
 </template>
