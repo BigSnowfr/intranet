@@ -93,7 +93,7 @@
 
     .open {
         animation: toggleMenu_Open 250ms linear;
-        width: 70% !important;
+        width: 70%;
     }
     .close {
         animation: toggleMenu_Close 150ms linear;
@@ -143,6 +143,13 @@
                 list-style: none;
                 margin-bottom: 35px;
                 font-size: 1.3em;
+                transition: 0.3s ease;
+                &:hover {
+                    transform: scale(1.02);
+                }
+                &:active {
+                    background-color: rgba(255, 255, 255, 0.12);
+                }
                 a {
                     color: #fff;
                     padding: 10px;
@@ -169,7 +176,7 @@
         right: 0;
         bottom: 0;
         position: absolute;
-        z-index: 3;
+        z-index: 55;
         background-color: transparent;
         border: 0;
     }

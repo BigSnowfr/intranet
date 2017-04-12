@@ -1,5 +1,5 @@
 <template>
-    <div class="liste-info">
+    <div class="informations liste-info">
         <h2 class="section-title">Informations</h2>
         <block
                 :id=1
@@ -101,12 +101,6 @@
     $blue: #146F88;
     $blueDark: #57709c;
 
-    .liste-info {
-        height: 100%;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        margin-top: 110px;
-    }
     .section-title {
         text-align: center;
         font-size: 1.5em;

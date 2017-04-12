@@ -1,5 +1,5 @@
 <template>
-    <div class="liste-info">
+    <div class="enseignants liste-info">
         <h2 class="section-title">Enseignants</h2>
         <input type="text" class="input-pseudo" v-model="prof" placeholder="Rechercher un enseignant">
         <div v-if="!ajax">
@@ -40,11 +40,13 @@
             block
         },
         created () {
+            this.ajax = true;
+        },
+        mounted () {
             if(this.enseignants.length === 0) {
-                this.ajax = true;
                 this.$store.dispatch('getEnseigantsFromAPI');
-                this.ajax = false;
             }
+            this.ajax = false;
         },
         computed: mapGetters([
             'mypseudo',
@@ -73,7 +75,7 @@
 
     .liste-info {
         height: 100%;
-        overflow-y: scroll;
+        overflow-y: auto;
         overflow-x: hidden;
         margin-top: 110px;
     }

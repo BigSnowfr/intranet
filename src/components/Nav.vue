@@ -16,7 +16,9 @@
             <div v-if="mypseudo">
                 <div class="loaded">
                     <div class="contenu">
-                        <router-view></router-view>
+                        <transition name='slide-fade' mode='out-in'>
+                            <router-view></router-view>
+                        </transition>
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@
                 if (this.menuVisible) this.$store.dispatch('toggleMenu');
             },
             changeAccount () {
-                this.$store.dispatch('toggleModalPseudo', 'me');
+                if(!this.menuVisible) this.$store.dispatch('toggleModalPseudo', 'me');
             },
             changeJour(jour) {
                 let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain';
@@ -112,6 +114,16 @@
     $green: #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
+    // Nav
+    .slide-fade-enter-active {
+        transition: all .2s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to {
+        transform: translateX(100vh);
+    }
     .blur {
         position: absolute;
         top: 0;
@@ -153,7 +165,7 @@
             text-align: center;
             flex-direction: column;
             background-color: $blue;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             position: fixed;
             z-index: 10;
             margin-top: -20px;
@@ -166,6 +178,22 @@
                     background-color: transparent;
                     border: 0;
                     z-index: 10;
+                    transition: 0.3s ease;
+                    &:hover {
+                        .menu-short-bar {
+                            width: 35px;
+                        }
+                    }
+                    &:active {
+                        .menu-short-bar {
+                            width: 35px;
+                            transform: rotateZ(45deg);
+                            margin-top: -8px;
+                        }
+                        .menu-long-bar {
+                            transform: rotateZ(-45deg);
+                        }
+                    }
                     .menu-bar {
                         background-color: #fff;
                         height: 3px;
@@ -173,12 +201,15 @@
                         border: 1px solid #fff;
                         display: block;
                         border-radius: 10px;
+                        transition: 0.3s ease;
                     }
                     .menu-long-bar {
                         width: 35px;
+                        transition: 0.3s ease;
                     }
                     .menu-short-bar {
                         width: 25px;
+                        transition: 0.3s ease;
                     }
                 }
                 .titre {
@@ -258,6 +289,57 @@
                     background-color: $blueDark;
                 }
             }
+        }
+    }
+    @media screen and (min-width: 780px){
+        .loaded {
+            max-width: 75%;
+            margin: 0 auto;
+            margin-left: 26%;
+        }
+        .cours {
+            overflow: hidden;
+        }
+        .header {
+            margin-left: 13%;
+        }
+        .message-container {
+            width: 50%;
+            margin-left: 45%;
+        }
+        .pas-cours .top {
+            .titre, .sous-titre {
+                width: auto;
+            }
+        }
+        .liste-info {
+            overflow-y: auto !important;
+            overflow-x: hidden;
+        }
+        .messages, .enseignants, .informations {
+            margin: auto;
+            text-align: center;
+            .block-information {
+                width: 45% !important;
+                margin-left: 15px;
+            }
+
+        }
+        .modal-pseudo {
+            max-width: 500px;
+            margin: auto;
+        }
+        .side-bar {
+            width: 25% !important;
+            margin-left: 0 !important;
+            opacity:1;
+            font-weight: normal;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .input-pseudo {
+            margin-bottom: 20px;
         }
     }
 </style>

@@ -49,10 +49,14 @@
         border-radius: 5px;
         margin-bottom: 20px;
         background-color: transparent;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
         transition: 0.5s ease all;
-        &:active {
+        &:hover {
             transform: scale(0.95);
+            box-shadow: none;
+        }
+        &:active{
+            transform: scale(0.90);
             box-shadow: none;
         }
 
