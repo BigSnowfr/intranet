@@ -17,9 +17,6 @@
         components: {
             block
         },
-        created () {
-
-        },
         computed: mapGetters([
             'mypseudo',
             'messages'

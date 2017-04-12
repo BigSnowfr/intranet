@@ -87,19 +87,8 @@
     export default {
         name: 'Informations',
         store,
-        data () {
-            return {}
-        },
         components: {
             block
-        },
-        created () {
-        },
-        mounted () {
-        },
-        computed: mapGetters([
-        ]),
-        methods: {
         },
         watch: {
             '$route': 'toggleMenu'

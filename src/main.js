@@ -17,6 +17,7 @@ Vue.use(VueRouter);
 Vue.use(require('vue-moment'));
 Vue.use(VueAxios, axios);
 
+
 const routes = [
     {path: '/messages', component:Messages},
     {path: '/informations', component:Informations},

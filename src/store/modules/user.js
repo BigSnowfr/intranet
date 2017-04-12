@@ -1,5 +1,6 @@
-import HTTP from '../../api'
+import {HTTP} from '../../api'
 import * as types from '../mutation-types'
+import messages from './messages'
 
 const state = {
     modalPseudo: '',
@@ -29,6 +30,19 @@ const actions = {
     },
     definePseudoFriend ({ commit, state }, valeur) {
         commit(types.SET_PSEUDO_FRIEND, valeur)
+    },
+    getPseudo ({ commit, state }) {
+        HTTP.get(`user/${state.mypseudo}`).then((response) => {
+            commit(types.SET_ETUDIANT, response.data);
+            // Récupération des messages
+            HTTP.get(`messages/${state.mypseudo}`).then((response) => {
+                commit(types.SET_MESSAGES, response.data);
+            }).catch((error) => {
+                console.log(error)
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 };
 
@@ -45,6 +59,10 @@ const mutations = {
     },
     [types.SET_PSEUDO_FRIEND] (state, valeur) {
         state.pseudoFriend = valeur;
+    },
+    [types.SET_MESSAGES] (state, valeur) {
+        state.messages = valeur;
+        state.countMessages = valeur.length;
     }
 };
 

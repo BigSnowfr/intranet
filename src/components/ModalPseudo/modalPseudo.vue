@@ -59,16 +59,8 @@
             if (amis) return this.pseudo_friends = amis;
         },
         watch: {
-            pseudo_friend () {
-                if (this.pseudo_friend && this.pseudo_friend.length > 0) {
-                    this.pseudo = '';
-                }
-            },
-            pseudo () {
-                if (this.pseudo.length > 0) {
-                    this.pseudo_friend = '';
-                }
-            }
+            pseudo_friend () { if (this.pseudo_friend && this.pseudo_friend.length > 0) this.pseudo = ''; },
+            pseudo () { if (this.pseudo.length > 0) this.pseudo_friend = ''; }
         },
         methods: {
             addPseudo () {
@@ -79,29 +71,18 @@
 
                         // On vérifie si le pseudo n'est pas déjà dans le tableau
                         let pseudoInArray = this.pseudo_friends.indexOf(this.pseudo);
+
                         if (pseudoInArray === -1 && this.pseudo.length > 0) {
                             this.pseudo_friends.push(this.pseudo);
                             localStorage.setItem('amis', JSON.stringify(this.pseudo_friends));
                         }
-                        if (this.pseudo_friend.length > 0) {
-                            this.pseudo = this.pseudo_friend;
-                        }
 
+                        if (this.pseudo_friend.length > 0) this.pseudo = this.pseudo_friend;
                     } else {
                         pseudo = 'definePseudo';
                         localStorage.setItem('pseudo', this.pseudo);
-                        HTTP.get(`user/${this.pseudo}`).then((response) => {
-                            this.$store.dispatch('defineEtudiant', response.data)
-                        }).catch(function (error) {
-                            console.log(error);
-                        });
-
-                        // Récupération des messages
-                        HTTP.get(`messages/${this.pseudo}`).then((response) => {
-                            this.$store.dispatch('setMessages', response.data);
-                        }).catch((error) => {
-                            console.log(error)
-                        });
+                        this.$store.dispatch('definePseudo', this.pseudo);
+                        this.$store.dispatch('getPseudo');
                     }
                     this.$store.dispatch(pseudo, this.pseudo);
                     this.$store.dispatch('toggleModalPseudo');
@@ -234,14 +215,6 @@
                         border: 2px solid #146F88;
                     }
                 }
-                .input-pseudo {
-                    width: 100%;
-                    background-color: transparent;
-                    border: 2px solid $blue;
-                    height: 35px;
-                    padding: 5px;
-                    color: $blue;
-                }
                 .btn-valider {
                     width: 100%;
                     margin-top: 20px;
@@ -256,6 +229,16 @@
                 }
             }
         }
+    }
+
+    .input-pseudo {
+        width: 100%;
+        border: 2px solid $blue;
+        height: 35px;
+        padding: 5px;
+        color: $blue;
+        background: url('http://195.83.128.55/~mmi15b08/intranet/dist/search.svg') 95% no-repeat;
+        background-size: 20px;
     }
     @keyframes open {
         from {

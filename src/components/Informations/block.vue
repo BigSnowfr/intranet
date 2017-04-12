@@ -31,8 +31,6 @@
         methods: {
             toggleContent () {
                 this.visible = !this.visible;
-                let position = document.getElementById(this.id).offsetTop;
-                window.scroll(0, position - 140);
             }
         },
     }

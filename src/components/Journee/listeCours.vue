@@ -9,7 +9,7 @@
                        target="_blank">
                         <div class="block-cours food-container">
                             <div class="image">
-                                <img class="photo" :src="'http://195.83.128.55/~mmi15b08/intranet/assets/food.jpg'" alt="Repas">
+                                <img class="photo" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/food.svg'" alt="Repas">
                             </div>
                             <div class="top">
                                 <span class="nom">Pause Repas</span>

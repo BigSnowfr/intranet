@@ -56,19 +56,9 @@
             return {
             }
         },
-        components: {
-        },
-        created () {
-        },
-        mounted () {
-        },
         computed: mapGetters([
             'weather'
-        ]),
-        methods: {
-        },
-        watch: {
-        }
+        ])
     }
 </script>
 

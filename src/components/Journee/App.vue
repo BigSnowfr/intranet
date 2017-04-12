@@ -59,23 +59,15 @@
             'etudiant'
         ]),
         watch: {
-            jour () {
-                this.getClasses(this.mypseudo);
-            },
-            pseudoFriend () {
-                if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend);
-            },
-            mypseudo () {
-                this.getClasses(this.mypseudo);
-            }
+            jour () { this.getClasses(this.mypseudo); },
+            pseudoFriend () { if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend); },
+            mypseudo () { this.getClasses(this.mypseudo); }
         },
         created () {
             moment.locale('fr');
             this.date = moment().format('dddd D MMMM YYYY');
             this.getClasses(this.mypseudo);
-            if (this.pseudoFriend !== '') {
-                this.getClasses(this.pseudoFriend);
-            }
+            if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend);
         },
         methods: {
             getClasses (pseudo) {
@@ -211,8 +203,11 @@
             overflow: hidden;
             height: 100px;
             margin: -10px;
+            display: flex;
+            background-color: $blue;
             .photo {
-                width: 100%;
+                margin-left: 10px;
+                width: 50px;
             }
         }
         .top {

@@ -16,7 +16,7 @@
     import store from '../../store/index'
     import { mapGetters } from 'vuex'
     export default {
-        name: 'app',
+        name: 'tuileCours',
         store,
         data () {
             return {
@@ -40,11 +40,7 @@
             isCoursPasse() {
                 let heure = moment();
                 let heureFinCours = moment(this.cour.hfin, 'HH:mm');
-                if (moment(heure).isAfter(heureFinCours) && this.$route.path === '/home') {
-                    return this.coursPasse = true;
-                } else {
-                    return this.coursPasse = false;
-                }
+                if (moment(heure).isAfter(heureFinCours) && this.$route.path === '/home') return this.coursPasse = true;
             }
         },
         watch: {

@@ -30,12 +30,6 @@
             if(this.message.importance === 'haute') {
                 this.messageImportant = true;
             }
-        },
-        mounted () {
-        },
-        computed: mapGetters([]),
-        methods: {},
-        watch: {
         }
     }
 </script>

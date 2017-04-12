@@ -1,4 +1,4 @@
-import HTTP from '../../api'
+import {HTTP} from '../../api'
 import * as types from '../mutation-types'
 
 const state = {

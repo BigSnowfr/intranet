@@ -1,66 +1,24 @@
 <template>
     <div class="liste-info">
         <h2 class="section-title">Enseignants</h2>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
-        <block
-                :id=1
-                :titre="'Jérôme LANDRÉ'"
-                :image="'0jerome.jpg'"
-                domaine="Programmation Web"
-                responsabilite="Directeur des études "
-                email="jerome.landre@univ-reims.fr"
-                bureau="H013"
-                site="http://jerome.landre.pagesperso-orange.fr/"
-        ></block>
+        <input type="text" class="input-pseudo" v-model="prof" placeholder="Rechercher un enseignant">
+        <div v-if="!ajax">
+            <block
+                    v-for="(enseignant,index) in enseignantsFiltrer"
+                    :id=index
+                    :key="index"
+                    :titre="`${enseignant.nom} ${enseignant.prenom}`"
+                    :image="enseignant.photo"
+                    :domaine="enseignant.domaine"
+                    :responsabilite="enseignant.responsabilites"
+                    :email="enseignant.mail"
+                    :bureau="enseignant.bureau1"
+                    :site="enseignant.siteuniv"
+            ></block>
+        </div>
+        <div class="loading text-center" v-else>
+            <img :src="'http://195.83.128.55/~mmi15b08/intranet/assets/ring.svg'" alt="Loading">
+        </div>
     </div>
 </template>
 
@@ -70,24 +28,40 @@
     import block from './block.vue'
     import {mapGetters} from 'vuex'
     export default {
-        name: 'Informations',
+        name: 'Enseignants',
         store,
         data () {
-            return {}
+            return {
+                prof: '',
+                ajax: false
+            }
         },
         components: {
             block
         },
         created () {
-        },
-        mounted () {
+            if(this.enseignants.length === 0) {
+                this.ajax = true;
+                this.$store.dispatch('getEnseigantsFromAPI');
+                this.ajax = false;
+            }
         },
         computed: mapGetters([
+            'mypseudo',
+            'enseignantsFiltrer',
+            'enseignants'
         ]),
         methods: {
+            filtreEnseignants() {
+                this.$store.dispatch('filterEnseignants', this.prof.toLowerCase());
+            },
         },
         watch: {
-            '$route': 'toggleMenu'
+            '$route': 'toggleMenu',
+            prof () {
+                if (this.prof.length > 1) return this.filtreEnseignants();
+                else return this.enseignantsFiltrer = this.enseignants;
+            }
         }
     }
 </script>
@@ -103,5 +77,4 @@
         overflow-x: hidden;
         margin-top: 110px;
     }
-
 </style>

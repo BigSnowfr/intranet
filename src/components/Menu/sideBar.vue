@@ -55,10 +55,6 @@
         components: {
             weather
         },
-        created () {
-        },
-        mounted () {
-        },
         computed: mapGetters([
             'menuVisible',
             'etudiant',

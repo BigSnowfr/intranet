@@ -2,15 +2,15 @@
     <button class="block-information" :id="id" @click="toggleContent">
         <div class="information-visible">
             <p class="titre">{{ titre }}</p>
-            <img class="image-information" :src="'https://intranet.iut-troyes.univ-reims.fr/media/cache/gallerie/uploads/img/enseignants/' + image" alt="Wifi">
+            <img class="image-information" :src="'http://intranet.iut-troyes.univ-reims.fr/media/cache/gallerie/uploads/img/enseignants/' + image" alt="Enseignant">
         </div>
         <div class="information" v-if="visible">
             <ul>
-                <li><strong>Domaine : </strong>{{ domaine }}</li>
-                <li><strong>Responsabilités : </strong>{{ responsabilite }}</li>
-                <li><strong>Email : </strong> <a :href="`mailto:${email}`">Contacter</a></li>
-                <li><strong>Bureau : </strong> {{ bureau }}</li>
-                <li><strong>Site : </strong> <a :href="site" target="_blank">Visiter</a></li>
+                <li v-if="domaine !== null && domaine !== ''"><strong>Domaine : </strong>{{ domaine }}</li>
+                <li v-if="responsabilite !== null && responsabilite !== ''"><strong>Responsabilités : </strong>{{ responsabilite }}</li>
+                <li v-if="email !== null && email !== ''"><strong>Email : </strong> <a :href="`mailto:${email}`">Contacter</a></li>
+                <li v-if="bureau !== null && bureau !== ''"><strong>Bureau : </strong> {{ bureau }}</li>
+                <li v-if="site !== null && site !== ''"><strong>Site : </strong> <a :href="site" target="_blank">Visiter</a></li>
             </ul>
         </div>
     </button>
@@ -21,7 +21,7 @@
     import store from '../../store/index'
     import {mapGetters} from 'vuex'
     export default {
-        name: 'Informations-Block',
+        name: 'Enseignant-Block',
         store,
         data () {
             return {
@@ -41,8 +41,6 @@
         methods: {
             toggleContent () {
                 this.visible = !this.visible;
-                let position = document.getElementById(this.id).offsetTop;
-                window.scroll(0, position - 140);
             }
         },
     }
