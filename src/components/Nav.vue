@@ -1,5 +1,4 @@
 <template>
-    <v-touch v-on:swiperight="onSwipeRight" v-on:swipeleft="onSwipeLeft">
         <div id="app" class="content">
             <div class="header">
                 <div class="header-top">
@@ -26,7 +25,6 @@
             <div class="blur"  v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
             <side-bar></side-bar>
         </div>
-    </v-touch>
 </template>
 
 <script>
@@ -83,12 +81,6 @@
         methods: {
             getPseudo () {
                 this.$store.dispatch('getPseudo');
-            },
-            onSwipeRight () {
-                if (!this.menuVisible) this.$store.dispatch('toggleMenu');
-            },
-            onSwipeLeft () {
-                if (this.menuVisible) this.$store.dispatch('toggleMenu');
             },
             changeAccount () {
                 if(!this.menuVisible) this.$store.dispatch('toggleModalPseudo', 'me');
@@ -149,6 +141,7 @@
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
+        cursor: pointer;
     }
     li {
         list-style: none;

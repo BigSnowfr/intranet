@@ -9,9 +9,7 @@ import Enseignants from './components/Enseignants/index.vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueRouter from 'vue-router';
-import VueTouch from 'vue-touch';
 
-Vue.use(VueTouch, {name: 'v-touch'});
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(require('vue-moment'));

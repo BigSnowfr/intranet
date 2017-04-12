@@ -51,10 +51,6 @@
         background-color: transparent;
         box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
         transition: 0.5s ease all;
-        &:hover {
-            transform: scale(0.95);
-            box-shadow: none;
-        }
         &:active{
             transform: scale(0.90);
             box-shadow: none;
@@ -82,6 +78,7 @@
                 padding-left: 12px;
                 li {
                     text-align: left;
+                    list-style: initial;
                 }
             }
         }

@@ -2,7 +2,7 @@
     <div class="modal-pseudo">
         <div class="modal-pseudo-contenu">
             <p class="text">
-                {{ title }} <button class="modal-pseudo-close" @click="closeModal">X</button>
+                {{ title }} <button class="modal-pseudo-close" @click="closeModal" v-if="mypseudo">X</button>
             </p>
             <form class="formulaire">
                 <label for="nom" class="label-form">{{label}}</label>

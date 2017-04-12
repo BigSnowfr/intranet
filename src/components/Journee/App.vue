@@ -155,7 +155,7 @@
         padding: 10px 10px 0 10px;
         margin-bottom: 40px;
         transition: 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
         .top {
             display: flex;
             .nom {
@@ -207,7 +207,7 @@
             background-color: $blue;
             .photo {
                 margin-left: 10px;
-                width: 50px;
+                width: 35px;
             }
         }
         .top {
