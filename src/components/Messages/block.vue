@@ -92,5 +92,6 @@
     .logo-iut {
         height: 25px;
         width: 25px;
+        vertical-align: middle;
     }
 </style>

@@ -134,7 +134,30 @@
         opacity: 0.5;
         z-index: 13;
     }
-
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+    }
+    button {
+        text-transform: none;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+    }
+    li {
+        list-style: none;
+    }
+    a {
+        color: $blue;
+        font-weight: bold;
+        text-decoration: none;
+    }
     *:focus {
         outline: none;
     }
@@ -156,6 +179,7 @@
         font-family: 'Open Sans', sans-serif;
         .loading {
             margin-top: 60px;
+            text-align: center;
         }
         .header {
             width: 100%;
@@ -225,6 +249,7 @@
             .bouton {
                 background-color: transparent;
                 border: 0;
+                color: #fff;
             }
             .sous-titre {
                 margin: auto;
