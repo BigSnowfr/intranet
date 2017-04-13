@@ -23,6 +23,9 @@ const actions = {
             console.log(err);
         })
     },
+    resetSearch ({commit, state}) {
+        commit(types.SET_ENSEIGNANTS_FILTER, state.enseignants)
+    },
     filterEnseignants ({commit, state}, valeur) {
         commit(types.SET_ENSEIGNANTS_FILTER, []);
         var enseignantsFiltre = [];

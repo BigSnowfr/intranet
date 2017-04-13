@@ -62,7 +62,7 @@
             '$route': 'toggleMenu',
             prof () {
                 if (this.prof.length > 1) return this.filtreEnseignants();
-                else return this.enseignantsFiltrer = this.enseignants;
+                else return this.$store.dispatch('resetSearch');
             }
         }
     }

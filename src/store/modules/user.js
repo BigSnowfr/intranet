@@ -29,7 +29,16 @@ const actions = {
         commit(types.SET_ETUDIANT, valeur)
     },
     definePseudoFriend ({ commit, state }, valeur) {
-        commit(types.SET_PSEUDO_FRIEND, valeur)
+            HTTP.get(`user/${valeur}`).then((response) => {
+                let rep = response.data;
+                rep['pseudo'] = valeur;
+                commit(types.SET_PSEUDO_FRIEND, rep)
+            }).catch(function (error) {
+                console.log(error);
+            });
+    },
+    resetFriend ({commit}) {
+      commit(types.SET_PSEUDO_FRIEND, '')
     },
     getPseudo ({ commit, state }) {
         HTTP.get(`user/${state.mypseudo}`).then((response) => {

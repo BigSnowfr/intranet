@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="slim" v-if="pseudoFriend">
-                <button class="pseudo-cours btn-pseudo-cours" @click="removeFriend">{{ pseudoFriend }} <span
+                <button class="pseudo-cours btn-pseudo-cours" @click="removeFriend">{{ pseudoFriend.prenom }} <span
                         class="remove-friend">X</span></button>
                 <liste-cours :coursProps="coursFriend"></liste-cours>
                 <div class="block-cours plus-cours-container">
@@ -60,14 +60,14 @@
         ]),
         watch: {
             jour () { this.getClasses(this.mypseudo); },
-            pseudoFriend () { if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend); },
+            pseudoFriend () { if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo); },
             mypseudo () { this.getClasses(this.mypseudo); }
         },
         created () {
             moment.locale('fr');
             this.date = moment().format('dddd D MMMM YYYY');
             this.getClasses(this.mypseudo);
-            if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend);
+            if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo);
         },
         methods: {
             getClasses (pseudo) {
@@ -77,7 +77,7 @@
                     HTTP.get(`${this.jour}/${pseudo}`).then((response) => {
                         if (response.data[0] === 'erreur') {
                             self.ajax = false;
-                            self.$store.dispatch('definePseudoFriend', '');
+                            //self.$store.dispatch('resetFriend');
                             alert('Aucun étudiant possède ce pseudo');
                             return;
                         }
@@ -107,7 +107,7 @@
                 }
             },
             removeFriend () {
-                this.$store.dispatch('definePseudoFriend', '');
+                this.$store.dispatch('resetFriend');
             }
         }
     }
