@@ -1,6 +1,6 @@
 {
   "name": "intranet",
-  "description": "A Vue.js project",
+  "description": "Web app intranet IUT de Troyes",
   "version": "1.0.0",
   "author": "Etienne <etienne.fontaine1@gmail.com>",
   "private": true,
