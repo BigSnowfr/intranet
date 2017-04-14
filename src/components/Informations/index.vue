@@ -107,4 +107,9 @@
         color: $blue;
         margin-bottom: 15px;
     }
+    @media screen and (max-width: 300px) {
+        .section-title {
+            margin-top: 0;
+        }
+    }
 </style>

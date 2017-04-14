@@ -1,15 +1,14 @@
 <template>
     <div>
-        <div v-for="(cour, index) in coursProps" v-if="cour.hfin !== undefined" class="tuile">
+        <div v-for="(cour, index) in coursProps" class="tuile">
             <div class="edt">
-                <tuile-cours :cour="cour" v-if="cour.hfin !== '12:30'"></tuile-cours>
-                <div v-else>
+                <div v-if="cour.hfin === '12:30'">
                     <tuile-cours :cour="cour"></tuile-cours>
                     <a href="https://www.google.fr/maps/place/CROUS+Restaurant+Universitaire/@48.2681027,4.0708735,18.46z/data=!4m5!3m4!1s0x0:0x8db035bfe8f37f27!8m2!3d48.2681183!4d4.0702991"
                        target="_blank">
                         <div class="block-cours food-container">
-                            <div class="image">
-                                <img class="photo" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/food.svg'" alt="Repas">
+                            <div class="image" >
+                                <img v-if="pseudoFriend === ''" class="photo" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/food.svg'" alt="Repas">
                             </div>
                             <div class="top">
                                 <span class="nom">Pause Repas</span>
@@ -17,6 +16,7 @@
                         </div>
                     </a>
                 </div>
+                <tuile-cours :cour="cour" v-else></tuile-cours>
             </div>
         </div>
     </div>
@@ -42,7 +42,8 @@
             'jour',
             'mypseudo',
             'modalPseudo',
-            'pseudoFriend'
+            'pseudoFriend',
+            'repas_display'
         ]),
     }
 </script>

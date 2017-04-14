@@ -28,3 +28,8 @@
         }
     }
 </script>
+<style lang="scss">
+    .router-link-active {
+        font-size: 15px !important;
+    }
+</style>

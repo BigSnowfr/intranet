@@ -360,4 +360,18 @@
             margin-bottom: 20px;
         }
     }
+
+    @media screen and (max-width: 300px) {
+        .bouton {
+            font-size: 22px;
+        }
+        .content {
+            .header {
+                height: 100px;
+            }
+        }
+    }
+    .hidden {
+        display: none;
+    }
 </style>

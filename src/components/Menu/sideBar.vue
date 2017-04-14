@@ -206,4 +206,9 @@
             -webkit-overflow-scrolling: touch;
         }
     }
+    @media screen and (max-width: 300px){
+        .side-bar .liste-items .liste-item {
+            font-size: 1em;
+        }
+    }
 </style>

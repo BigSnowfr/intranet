@@ -35,7 +35,7 @@ const mutations = {
     },
     [types.SET_WEATHER] (state, valeur) {
         state.weather = valeur;
-    },
+    }
 };
 
 export default {

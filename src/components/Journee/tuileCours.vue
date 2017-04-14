@@ -1,13 +1,18 @@
 <template>
-    <div class="block-cours" :class="{ 'cours-passe': coursPasse }">
-        <div class="top">
-            <span class="nom"><span v-if="cour.matiere !== ''">{{ cour.libelle_long }}</span></span>
-            <span class="prof" v-if="pseudoFriend === ''"><a :href="'mailto:' + cour.profemail">{{ cour.prof }}</a></span>
+    <div>
+        <div class="block-cours" :class="{ 'cours-passe': coursPasse }" v-if="!Array.isArray(cour)">
+            <div class="top">
+                <span class="nom"><span v-if="cour.matiere !== ''">{{ cour.libelle_long }}</span></span>
+                <span class="prof" v-if="pseudoFriend === ''"><a :href="'mailto:' + cour.profemail">{{ cour.prof }}</a></span>
+            </div>
+            <p>{{ cour.texte }}</p>
+            <div class="bottom">
+                <span class="heure">{{ cour.hdebut }} - {{ cour.hfin }}</span>
+                <span class="salle" v-if="cour.salle !== '****'" :class="{ 'hidden': pseudoFriend}">{{ cour.type }} - {{ cour.salle }}</span>
+            </div>
         </div>
-        <p>{{ cour.texte }}</p>
-        <div class="bottom">
-            <span class="heure">{{ cour.hdebut }} - {{ cour.hfin }}</span>
-            <span class="salle" v-if="cour.salle !== '****'">{{ cour.type }} - {{ cour.salle }}</span>
+        <div class="block-cours" :class="{ 'cours-passe': coursPasse }" v-if="Array.isArray(cour) && pseudoFriend !== ''">
+            <p>Pas cours</p>
         </div>
     </div>
 </template>

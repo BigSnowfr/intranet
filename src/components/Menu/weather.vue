@@ -351,4 +351,9 @@
             100% { transform: rotate(360deg); }
         }
     }
+    @media screen and (max-width: 300px){
+        .weather {
+            height: 21%;
+        }
+    }
 </style>

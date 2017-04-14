@@ -79,4 +79,9 @@
         overflow-x: hidden;
         margin-top: 110px;
     }
+    @media screen and (max-width: 300px) {
+        .liste-info {
+            margin-top: 85px;
+        }
+    }
 </style>

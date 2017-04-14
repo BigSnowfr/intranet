@@ -59,7 +59,12 @@
             'etudiant'
         ]),
         watch: {
-            jour () { this.getClasses(this.mypseudo); },
+            jour () {
+                    this.getClasses(this.mypseudo);
+                    if (this.pseudoFriend !== '') {
+                        this.getClasses(this.pseudoFriend.pseudo);
+                    }
+                },
             pseudoFriend () { if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo); },
             mypseudo () { this.getClasses(this.mypseudo); }
         },
@@ -82,20 +87,13 @@
                             return;
                         }
                         // On vérifie qu'il y a des cours
-                        var cours = [];
-                        for (let key in response.data) {
-                            cours.push(response.data[key]);
-                        }
-                        cours.map((obj, index) => {
-                            if (obj.fin) {
-                                cours[index].type = obj.type.toUpperCase();
-                            } else {
-                                cours[index].pascours = 1
-                            }
-                        });
+                        var cours = response.data;
+
+
                         if (pseudo === this.mypseudo) {
                             this.cours = cours;
                         } else {
+
                             this.coursFriend = cours;
                         }
 
@@ -218,6 +216,27 @@
             .nom {
                 color: #fff !important;
                 margin: auto;
+            }
+        }
+    }
+    @media screen and (max-width: 300px){
+        .block-cours {
+            .top .nom {
+                font-size: 14px;
+            }
+            .bottom {
+                font-size: 12px;
+            }
+            .plus-cours {
+                font-size: 14px;
+                margin: 0;
+                width: 100%;
+                height: 50px;
+            }
+        }
+        .prof {
+            a {
+                font-size: 12px;
             }
         }
     }
