@@ -60,11 +60,9 @@
         ]),
         watch: {
             jour () {
-                    this.getClasses(this.mypseudo);
-                    if (this.pseudoFriend !== '') {
-                        this.getClasses(this.pseudoFriend.pseudo);
-                    }
-                },
+                this.getClasses(this.mypseudo);
+                if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo);
+            },
             pseudoFriend () { if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo); },
             mypseudo () { this.getClasses(this.mypseudo); }
         },
@@ -149,7 +147,7 @@
 
     .block-cours {
         width: 100%;
-        height: 100px;
+        min-height: 90px;
         padding: 10px 10px 0 10px;
         margin-bottom: 40px;
         transition: 0.3s ease;
@@ -169,6 +167,7 @@
         }
         .bottom {
             display: flex;
+            padding-bottom: 5px;
             .heure {
                 flex: 3;
                 padding: 7px 10px;

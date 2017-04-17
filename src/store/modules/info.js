@@ -2,7 +2,7 @@ import {HTTP} from '../../api'
 import * as types from '../mutation-types'
 
 const state = {
-    jour: 'edtjour',
+    jour: '',
     weather: {}
 };
 

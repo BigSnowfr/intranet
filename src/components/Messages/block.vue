@@ -68,6 +68,8 @@
                 .picto-important {
                     height: 15px;
                     width: 15px;
+                    margin-left: 10px;
+                    float: left;
                 }
                 .date {
                     position: absolute;
