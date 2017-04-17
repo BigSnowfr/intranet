@@ -68,7 +68,7 @@
     $blueDark: #57709c;
 
     .weather {
-        height: 25%;
+        height: 20%;
         display: flex;
         .ville-name {
             font-size: 14px;
@@ -352,8 +352,5 @@
         }
     }
     @media screen and (max-width: 300px){
-        .weather {
-            height: 21%;
-        }
     }
 </style>

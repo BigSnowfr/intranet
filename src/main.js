@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import App from './components/Journee/App.vue';
 import sallesDispo from './components/Journee/sallesDispo.vue';
 import Messages from './components/Messages/index.vue';
+import Map from './components/Map/index.vue';
 import Nav from './components/Nav.vue';
 import Informations from './components/Informations/index.vue';
 import Enseignants from './components/Enseignants/index.vue';
@@ -18,6 +19,7 @@ Vue.use(VueAxios, axios);
 
 const routes = [
     {path: '/messages', component:Messages},
+    {path: '/plan', component:Map},
     {path: '/informations', component:Informations},
     {path: '/enseignants', component:Enseignants},
     {path: '/home/salles', component:sallesDispo},

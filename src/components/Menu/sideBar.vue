@@ -14,12 +14,6 @@
                     </router-link>
                 </li>
                 <li class="liste-item">
-                    <router-link to='/messages' exact>
-                        <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/message.svg" alt="Message">
-                        <span>Messages <span v-if="countMessages > 0" class="pastille-notif">{{ countMessages }}</span></span>
-                    </router-link>
-                </li>
-                <li class="liste-item">
                     <router-link to='/enseignants' exact>
                         <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/user.svg" alt="Enseignants">
                         <span>Enseignants</span>
@@ -29,6 +23,18 @@
                     <router-link to='/informations' exact>
                         <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/info.svg" alt="Informations">
                         <span>Informations</span>
+                    </router-link>
+                </li>
+                <li class="liste-item">
+                    <router-link to='/messages' exact>
+                        <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/message.svg" alt="Message">
+                        <span>Messages <span v-if="countMessages > 0" class="pastille-notif">{{ countMessages }}</span></span>
+                    </router-link>
+                </li>
+                <li class="liste-item">
+                    <router-link to='/plan' exact>
+                        <img class="img-liste-item" src="http://195.83.128.55/~mmi15b08/intranet/dist/map.svg" alt="Plan">
+                        <span>Plan</span>
                     </router-link>
                 </li>
             </ul>
@@ -137,11 +143,11 @@
             }
         }
         .liste-items {
-            margin-top: 60px;
+            margin-top: 15px;
             padding-left: 15px;
             .liste-item {
                 list-style: none;
-                margin-bottom: 35px;
+                margin-bottom: 20px;
                 font-size: 1.3em;
                 transition: 0.3s ease;
                 &:hover {
