@@ -45,7 +45,7 @@ const actions = {
             commit(types.SET_ETUDIANT, response.data);
             // Récupération des messages
             HTTP.get(`messages/${state.mypseudo}`).then((response) => {
-                commit(types.SET_MESSAGES, response.data);
+                commit(types.SET_MESSAGES, response.data.reverse());
             }).catch((error) => {
                 console.log(error)
             });

@@ -65,13 +65,6 @@
 
             // Récupération de la météo
             this.$store.dispatch('setWeather');
-
-            // Récupération du jour en fonction de l'URL
-            if (this.$route.path === '/home/demain') {
-                this.$store.dispatch('setDateActive', 'edtlendemain');
-            }else {
-                this.$store.dispatch('setDateActive', 'edtjour');
-            }
         },
         mounted () {
             if(this.mypseudo !== '') this.getPseudo();

@@ -13,7 +13,7 @@ const getters = {
 
 // actions
 const actions = {
-    setMessages ({ commit, state }, valeur) {
+    setMessages ({ commit }, valeur) {
         commit(types.SET_MESSAGES, valeur);
     }
 };

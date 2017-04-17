@@ -21,6 +21,9 @@
             'mypseudo',
             'messages'
         ]),
+        mounted () {
+            window.scroll(0,10000)
+        }
     }
 </script>
 <style lang="scss">

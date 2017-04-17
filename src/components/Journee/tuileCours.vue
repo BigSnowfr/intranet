@@ -8,7 +8,7 @@
             <p>{{ cour.texte }}</p>
             <div class="bottom">
                 <span class="heure">{{ cour.hdebut }} - {{ cour.hfin }}</span>
-                <span class="salle" v-if="cour.salle !== '****'" :class="{ 'hidden': pseudoFriend}">{{ cour.type }} - {{ cour.salle }}</span>
+                <span class="salle" v-if="cour.salle !== '****'" :class="{ 'hidden': pseudoFriend}">{{ type }} - {{ cour.salle }}</span>
             </div>
         </div>
         <div class="block-cours" :class="{ 'cours-passe': coursPasse }" v-if="Array.isArray(cour) && pseudoFriend !== ''">
@@ -27,7 +27,8 @@
             return {
                 heure: '',
                 state: store.state,
-                coursPasse: false
+                coursPasse: false,
+                type: ''
             }
         },
         props: {
@@ -35,6 +36,7 @@
         },
         mounted () {
             this.isCoursPasse();
+            this.type = this.cour.type.toUpperCase()
         },
         computed: mapGetters([
             'jour',

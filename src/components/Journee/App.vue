@@ -68,9 +68,17 @@
         },
         created () {
             moment.locale('fr');
+            if (this.$route.path === '/home/demain') {
+                this.$store.dispatch('setDateActive', 'edtlendemain');
+            }else {
+                this.$store.dispatch('setDateActive', 'edtjour');
+            }
             this.date = moment().format('dddd D MMMM YYYY');
             this.getClasses(this.mypseudo);
             if (this.pseudoFriend !== '') this.getClasses(this.pseudoFriend.pseudo);
+        },
+        mounted () {
+            window.scroll(0,0);
         },
         methods: {
             getClasses (pseudo) {
@@ -162,6 +170,7 @@
             }
             .prof {
                 color: $blue;
+                font-size: 12px;
                 font-weight: bold;
             }
         }
@@ -173,7 +182,8 @@
                 padding: 7px 10px;
             }
             .salle {
-                background-color: #dddddd;
+                background-color: $green;
+                color: #fff;
                 padding: 7px 10px;
                 border-radius: 20px;
             }

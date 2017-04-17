@@ -3,14 +3,16 @@
         <div class="block-cours message" :class="{ 'message-important': messageImportant }">
             <p class="message-content">{{ message.message }}</p>
             <div class="bas">
-                <img v-if="message.importance === 'haute'" class="picto-important"  src="http://195.83.128.55/~mmi15b08/intranet/dist/exclamation-mark.svg" alt="Important">
+                <div v-if="message.importance === 'haute'" class="message-important">
+                    <img class="picto-important"  src="http://195.83.128.55/~mmi15b08/intranet/dist/exclamation-mark.svg" alt="Important">
+                    <span>Important</span>
+                </div>
                 <span class="date">Le {{ message.date }} à {{ message.heure }}</span>
             </div>
         </div>
         <img class="logo-iut logo-iut-message" src="http://195.83.128.55/~mmi15b08/intranet/dist/iut.png" alt="Logo IUT">
     </div>
 </template>
-
 <script>
     import {HTTP} from '../../api'
     import store from '../../store/index'
@@ -33,7 +35,6 @@
         }
     }
 </script>
-
 <style lang="scss">
     $green: #27B07C;
     $blue: #146F88;
@@ -54,7 +55,7 @@
             word-wrap: break-word;
             box-sizing: border-box;
             max-width: 90%;
-            background-color: $blueLight;
+            background-color: $blue;
             color: #fff;
             height: auto;
             padding: 6px 12px;
@@ -68,13 +69,21 @@
                 .picto-important {
                     height: 15px;
                     width: 15px;
-                    margin-left: 10px;
-                    float: left;
                 }
                 .date {
                     position: absolute;
                     right: 5px;
                     bottom: 3px;
+                }
+                .message-important {
+                    display: inline-block;
+                    position: relative;
+                    float: left;
+                    span {
+                        position: absolute;
+                        top: -2px;
+                        left: 30px;
+                    }
                 }
             }
             .message-content {

@@ -41,6 +41,7 @@
     .block-information {
         width: 100%;
         min-height: 100px;
+        max-height: 800px;
         border-bottom: 5px solid $green;
         border-right: 0;
         border-left: 0;
@@ -50,7 +51,7 @@
         margin-bottom: 20px;
         background-color: transparent;
         box-shadow: 0 8px 10px rgba(0, 0, 0, 0.10);
-        transition: 0.5s ease all;
+        transition: 5s ease all;
         &:active{
             transform: scale(0.90);
             box-shadow: none;
@@ -73,7 +74,7 @@
         .information {
             margin-bottom: 20px;
             text-align: justify;
-            animation: showContent 100ms ease;
+            animation: showContent 0.5s ease;
             ul {
                 padding-left: 12px;
                 li {
@@ -84,11 +85,11 @@
         }
         @keyframes showContent {
             0% {
-                height: 0;
+                max-height: 0;
                 opacity: 0;
             }
             100% {
-                height: auto;
+                max-height: 800px;
                 opacity: 1;
             }
         }

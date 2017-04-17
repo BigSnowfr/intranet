@@ -2,7 +2,9 @@
     <div class="modal-pseudo">
         <div class="modal-pseudo-contenu">
             <p class="text">
-                {{ title }} <button class="modal-pseudo-close" @click="closeModal" v-if="mypseudo">X</button>
+                <img class="picto-modal" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/user.svg'" alt="Login">
+                <span class="titre-modal-pseudo">{{ title }}</span>
+                <button class="modal-pseudo-close" @click="closeModal" v-if="mypseudo">X</button>
             </p>
             <form class="formulaire">
                 <label for="nom" class="label-form">{{label}}</label>
@@ -181,22 +183,39 @@
         .modal-pseudo-contenu {
             background-color: gainsboro;
             width: 100%;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+            position: relative;
             .text {
                 color: $green;
                 width: 90%;
                 margin: 20px auto 10px auto;
                 font-size: 15px;
                 font-weight: 600;
-            }
-            .modal-pseudo-close {
-                background-color: transparent;
-                border: 0;
-                font-weight: 800;
-                color: $orange;
-                font-size: 24px;
-                float: right;
-                margin-top: -9px;
+                .picto-modal {
+                    height: 30px;
+                }
+                .titre-modal-pseudo {
+                    vertical-align: super;
+                    font-size: 20px;
+                    margin-left: 10px;
+                }
+                .modal-pseudo-close {
+                    border: 0;
+                    font-weight: 800;
+                    color: $orange;
+                    font-size: 24px;
+                    float: right;
+                    position: absolute;
+                    right: 7px;
+                    top: 7px;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    padding: 0 10px;
+                    transition: 0.3s ease;
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
             }
             .formulaire {
                 padding: 10px;
@@ -239,6 +258,7 @@
         color: $blue;
         background: url('http://195.83.128.55/~mmi15b08/intranet/dist/search.svg') 95% no-repeat;
         background-size: 20px;
+        margin-top: 10px;
     }
     @keyframes open {
         from {
