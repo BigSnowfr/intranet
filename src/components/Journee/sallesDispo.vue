@@ -7,7 +7,9 @@
         </div>
         <div class="bottom">
             <ul class="salles">
-                <li class="salle-dispo" v-for="salle in sallesMMI">{{ salle }}</li>
+                <router-link to='/plan' class='boutton' exact>
+                <li @click="selectClasse(salle)" class="salle-dispo" v-for="salle in sallesMMI">{{ salle }}</li>
+                </router-link>
             </ul>
         </div>
     </div>
@@ -36,6 +38,11 @@
         },
         created () {
           this.heure = moment().format("HH:mm")
+        },
+        methods: {
+            selectClasse (salle) {
+                this.$store.dispatch('setSalleSelected', salle)
+            }
         },
         computed: mapGetters([
             'jour',
@@ -102,7 +109,7 @@
                 border-radius: 14px;
                 margin: 10px;
                 font-size: 14px;
-
+                cursor: pointer;
             }
         }
     }

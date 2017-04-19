@@ -33,5 +33,5 @@ export let router = new VueRouter({
     routes
 });
 
-let vm =new Vue(Vue.util.extend({router}, Nav)).$mount('#app');
+let vm = new Vue(Vue.util.extend({router}, Nav)).$mount('#app');
 window.vue = vm;

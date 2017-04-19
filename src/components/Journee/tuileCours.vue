@@ -8,7 +8,9 @@
             <p>{{ cour.texte }}</p>
             <div class="bottom">
                 <span class="heure">{{ cour.hdebut }} - {{ cour.hfin }}</span>
-                <span class="salle" v-if="cour.salle !== '****'" :class="{ 'hidden': pseudoFriend}">{{ type }} - {{ cour.salle }}</span>
+                <router-link to='/plan' class='boutton' exact>
+                    <span @click="selectClasse" class="salle" v-if="cour.salle !== '****'" :class="{ 'hidden': pseudoFriend}">{{ type }} - {{ cour.salle }}</span>
+                </router-link>
             </div>
         </div>
         <div class="block-cours" :class="{ 'cours-passe': coursPasse }" v-if="Array.isArray(cour) && pseudoFriend !== ''">
@@ -48,6 +50,9 @@
                 let heure = moment();
                 let heureFinCours = moment(this.cour.hfin, 'HH:mm');
                 if (moment(heure).isAfter(heureFinCours) && this.$route.path === '/home') return this.coursPasse = true;
+            },
+            selectClasse () {
+                this.$store.dispatch('setSalleSelected', this.cour.salle)
             }
         },
         watch: {
@@ -60,5 +65,8 @@
     .cours-passe {
         opacity: 0.3;
         box-shadow: none;
+    }
+    .salle {
+        cursor: pointer;
     }
 </style>
