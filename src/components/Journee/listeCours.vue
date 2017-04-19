@@ -44,7 +44,7 @@
         },
         mounted () {
             let heure = moment();
-            if (moment(heure).isAfter(moment('14:00', 'HH:mm'))) return this.repasPasse = true;
+            if (moment(heure).isAfter(moment('14:00', 'HH:mm')) && this.$route.path === '/home') return this.repasPasse = true;
         },
         computed: mapGetters([
             'jour',

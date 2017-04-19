@@ -15,9 +15,9 @@
             <div v-if="mypseudo">
                 <div class="loaded">
                     <div class="contenu">
-                        <!--<transition name='slide-fade' mode='out-in'>-->
+                        <transition name='slide-fade' mode='out-in'>
                             <router-view></router-view>
-                        <!--</transition>-->
+                        </transition>
                     </div>
                 </div>
             </div>

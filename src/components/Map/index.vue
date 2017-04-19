@@ -1,8 +1,7 @@
 <template>
     <div class="plan liste-info">
         <h2 class="section-title titre-plan">{{ title }}</h2>
-        <div v-if="batimentSelected === ''">
-            <p class="section-title titre-plan">Batiment : {{ salleHovered }}</p>
+        <div v-if="batimentSelected === ''" class="batiment-iut">
             <div class="carte">
                 <div class="map" id="map">
                     <div class="map__image">
@@ -17,11 +16,10 @@
             </div>
         </div>
         <div v-else>
-            <batiment :salles="sallesActive" @backHome="resetPlan()"></batiment>
+            <batiment class="batiment" :salles="sallesActive" @backHome="resetPlan()"></batiment>
         </div>
     </div>
 </template>
-
 <script>
     import {HTTP} from '../../api'
     import store from '../../store/index'
@@ -205,12 +203,33 @@
                             },
                         },
                         '1er': {
+                            1: {
+                                nom: 'H101',
+                                x: '1.5',
+                                y: '72',
+                                width: '78',
+                                height: '89'
+                            },
                             2: {
-                                nom: 'H007',
+                                nom: 'H103',
                                 x: '1.5',
                                 y: '1',
                                 width: '119',
                                 height: '71'
+                            },
+                            3: {
+                                nom: 'H104',
+                                x: '285.5',
+                                y: '159',
+                                width: '73',
+                                height: '151'
+                            },
+                            4: {
+                                nom: 'H105',
+                                x: '285.5',
+                                y: '310',
+                                width: '73',
+                                height: '124'
                             }
                         },
                         '2eme': {
@@ -232,13 +251,19 @@
             batiment
         },
         mounted () {
-            window.scroll(0,0);
+            window.scroll(0, 0);
             if (this.salleSelected === '') {
                 this.sallesActive = this.batiments;
-            }else {
+            } else {
                 let batiment = this.salleSelected.split('');
                 this.sallesActive = this.salles[batiment[0]];
+                this.$store.dispatch('setBatimentSelected', batiment[0]);
             }
+        },
+        destroyed () {
+            this.$store.dispatch('setBatimentSelected', '');
+            this.$store.dispatch('setSalleSelected', '');
+            this.$store.dispatch('setEtageSelected', '');
         },
         watch: {
             batimentSelected () {
@@ -270,7 +295,29 @@
     $green: #27B07C;
     $greenDark: #248e5f;
     $blue: #146F88;
+    @keyframes changeMapToBatiment {
+        0% {
+            opacity: 0;
+            transform: perspective(500px) translateZ(-300px);
+        }
+    }
+    @keyframes changeMapToIut {
+        0% {
+            opacity: 0;
+            transform: perspective(500px) translateZ(300px);
+        }
+    }
     .plan {
+        .batiment-iut {
+            animation: changeMapToIut 0.5s;
+            opacity: 1;
+            transform: perspective(500px) translateZ(0);
+        }
+        .batiment {
+            animation: changeMapToBatiment 0.5s;
+            opacity: 1;
+            transform: perspective(500px) translateZ(0);
+        }
         .titre-plan {
             margin: 0;
         }
@@ -285,6 +332,15 @@
                 }
                 rect:hover, .active {
                     fill: $blue;
+                }
+                text {
+                    font-family: 'Open Sans', 'sans-serif';
+                    font-weight: 400;
+                    font-size: 15px;
+                    font-style: normal;
+                    text-align: center;
+                    fill: #000000;
+                    stroke: none;
                 }
             }
 

@@ -50,4 +50,10 @@
     }
 </script>
 <style lang="scss">
+    .bouton-plan {
+        transition: 0.3s ease all;
+        &:active {
+            transform: scale(0.95);
+        }
+    }
 </style>

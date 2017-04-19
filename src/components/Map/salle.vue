@@ -8,13 +8,11 @@
               @click="selectBatiment(salle.nom)"
         />
         <g :transform="'matrix(1,0,0,1,'+salle.x+','+salle.y+')'">
-            <text :transform="'matrix(1,0,0,1,1,45)'"
-                  style="font-family:'Open Sans';;font-weight:400;font-size:20px;font-style:normal;fill:#000000;stroke:none;">
+            <text :transform="'matrix(1,0,0,1,1,45)'">
                 {{ salle.nom }}
             </text>
         </g>
     </g>
-
 </template>
 
 <script>
@@ -54,5 +52,3 @@
         ]),
     }
 </script>
-<style lang="scss">
-</style>

@@ -2,9 +2,8 @@
     <div>
         <button class="back-button" @click="retourHome"><img src="http://195.83.128.55/~mmi15b08/intranet/dist/left-arrow.svg" alt="Retour"></button>
         <div class="bouttons">
-            <boutton-etage :etage="index" v-for="(salle,index) in salles"></boutton-etage>
+            <boutton-etage :etage="index" v-for="(salle,index) in salles" :key="index"></boutton-etage>
         </div>
-        <p class="section-title titre-plan">Salle : {{ salleHovered }}</p>
         <div class="carte">
             <div class="map" id="map">
                 <div class="map__image">
@@ -75,7 +74,7 @@
             height: 32px;
             transition: 0.3s ease all;
             &:hover {
-                transform: scale(1.1);
+                transform: scale(0.9);
             }
         }
     }
