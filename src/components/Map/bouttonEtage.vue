@@ -25,7 +25,7 @@
                 this.active = true;
             }else if ((salle[1] === '1' && this.etage === '1er') || (this.etageSelected === '1er' && this.etage === '1er')) {
                 this.active = true;
-            }else if ((salle[1] === '2' && this.etage === '2ème') || (this.etageSelected === '2ème' && this.etage === '2ème')){
+            }else if ((salle[1] === '2' && this.etage === '2eme') || (this.etageSelected === '2ème' && this.etage === '2ème')){
                 this.active = true;
             }
         },

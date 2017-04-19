@@ -258,6 +258,14 @@
                 let batiment = this.salleSelected.split('');
                 this.sallesActive = this.salles[batiment[0]];
                 this.$store.dispatch('setBatimentSelected', batiment[0]);
+                let etage = {
+                    0: 'RDC',
+                    1: '1er',
+                    2: '2eme',
+                    3: '3eme',
+                    4: '4eme'
+                };
+                this.$store.dispatch('setEtageSelected', etage[batiment[1]]);
             }
         },
         destroyed () {

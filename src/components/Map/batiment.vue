@@ -43,7 +43,7 @@
         },
         mounted () {
             window.scroll(0,0);
-            this.$store.dispatch('setEtageSelected', 'RDC');
+            if (this.etageSelected === '') this.$store.dispatch('setEtageSelected', 'RDC');
             this.salleHovered = this.salleSelected;
         },
         methods: {
