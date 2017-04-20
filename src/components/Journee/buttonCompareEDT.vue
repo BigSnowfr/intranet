@@ -41,7 +41,8 @@
         position: fixed;
         right: 20px;
         bottom: 20px;
-        background-color: $orange;
+       // background-color: $orange;
+        background: linear-gradient(to top, #ffac63, #f3903a);
         text-align: center;
         padding: 10px;
         height: 50px;

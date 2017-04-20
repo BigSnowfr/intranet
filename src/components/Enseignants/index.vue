@@ -78,14 +78,15 @@
             },
             beforeEnter: (el) => {
                 el.style.opacity = 0;
-                el.style.height = 0
+                el.style.height = 0;
+                el.style.marginLeft = '-50px';
             },
             enter: (el, done) => {
                 var delay = el.dataset.index * 150;
                 setTimeout(() => {
                     Velocity(
                         el,
-                        { opacity: 1, height: '100px' },
+                        { opacity: 1, height: '100px', marginLeft: 0 },
                         { complete: done }
                     )
                 }, delay)
@@ -116,6 +117,10 @@
     $green: #27B07C;
     $blue: #146F88;
     $blueDark: #57709c;
+
+    [v-cloak] {
+        display: none;
+    }
 
     .recherche {
         display: flex;

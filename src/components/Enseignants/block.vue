@@ -11,6 +11,7 @@
             <ul class="ul-information">
                 <li v-if="domaine !== null && domaine !== ''"><strong>Domaine : </strong>{{ domaine }}</li>
                 <li v-if="responsabilite !== null && responsabilite !== ''"><strong>Responsabilités : </strong>{{ responsabilite }}</li>
+                <li v-if="email !== null && email !== ''"><strong>Email : </strong> <a :href="`mailto:${email}`">{{ email }}</a></li>
                 <li v-if="bureau !== null && bureau !== ''"><strong>Bureau : </strong> {{ bureau }}</li>
                 <li v-if="site !== null && site !== ''"><strong>Site : </strong> <a :href="site" target="_blank">Visiter</a></li>
             </ul>

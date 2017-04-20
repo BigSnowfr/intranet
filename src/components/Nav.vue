@@ -184,7 +184,7 @@
             padding-top: 2vh;
             text-align: center;
             flex-direction: column;
-            background-color: $blue;
+            background: linear-gradient(to top, #0d92b7, #197e9a);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             position: fixed;
             z-index: 10;
