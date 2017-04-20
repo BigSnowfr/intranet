@@ -8,7 +8,7 @@
                     <div class="map__image">
                         <svg class="plan_iut_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate"
                              viewBox="-7.069401637272728 0 427.06940163727273 400" width="100%" height="400">
-                            <path d=" M 174 128 L 174 147 L 196 148 L 196 162 L 159 162 L 160 115 L 223 116.04222120874621 L 222.7692083033441 130.08684633817418 L 174 128 Z "
+                            <path  d=" M 174 128 L 174 147 L 196 148 L 196 162 L 159 162 L 160 115 L 223 116.04222120874621 L 222.7692083033441 130.08684633817418 L 174 128 Z "
                                   fill="rgb(20,111,136)"/>
                             <path d=" M 258.44617589808524 320 L 200.74853115524365 372 L 3.999999999999986 236.00000000000003 L 160 80.77137046027883"
                                   fill="none"/>
@@ -647,10 +647,8 @@
                                   @click="selectBatiment('D')" x="214.86100395588815" y="224.31341515327045" width="50.59981824786908" height="68.6735361514227"
                                   transform="matrix(0.999754452115306,0.0221593202879584,-0.02215932028795839,0.999754452115306,5.790483256903059,-5.258291588216707)"
                                   fill="rgb(20,111,136)"/>
-                            <path d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
-                                  fill="none"/>
                             <g style="isolation: isolate;">
-                                <path d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
+                                <path class="route-interne" d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
                                       fill="none" vector-effect="non-scaling-stroke" stroke-width="5" stroke="rgb(0,0,0)"
                                       stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
@@ -733,7 +731,7 @@
                             </g>
                             <line x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14"/>
                             <g style="isolation: isolate;">
-                                <line x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14" fill="none"
+                                <line class="route" x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14" fill="none"
                                       vector-effect="non-scaling-stroke" stroke-width="10" stroke="rgb(39,176,124)" stroke-linejoin="miter"
                                       stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
@@ -1150,6 +1148,32 @@
     $greenDark: #248e5f;
     $blue: #146F88;
     $blueDark: #135e73;
+    .route {
+        fill: transparent;
+        stroke: $green;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 7px;
+        animation: trolley-path-move 60s linear infinite;
+        stroke-dasharray: 20;
+    }
+    .route-interne {
+        fill: transparent;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4px;
+        animation: trolley-path-move 60s linear infinite;
+        stroke-dasharray: 10;
+    }
+    @keyframes trolley-path-move {
+        from {
+            stroke-dashoffset: 100%;
+        }
+        to {
+            stroke-dashoffset: 0%;
+        }
+    }
     @keyframes changeMapToBatiment {
         0% {
             opacity: 0;

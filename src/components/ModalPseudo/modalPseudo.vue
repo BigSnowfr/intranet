@@ -2,7 +2,6 @@
     <div class="modal-pseudo">
         <div class="modal-pseudo-contenu">
             <p class="text">
-                <img class="picto-modal" :src="'http://195.83.128.55/~mmi15b08/intranet/dist/user.svg'" alt="Login">
                 <span class="titre-modal-pseudo">{{ title }}</span>
                 <button class="modal-pseudo-close" @click="closeModal" v-if="mypseudo">X</button>
             </p>
@@ -54,7 +53,7 @@
             document.getElementById("nom").focus();
             if(this.modalPseudo === 'friend') {
                 this.title = 'Comparer nos emplois du temps';
-                this.label = 'Entrer le pseudo d\'un étudiant';
+                this.label = 'Entrez le pseudo d\'un étudiant';
                 this.button = 'Comparer';
             }
             let amis = JSON.parse(localStorage.getItem('amis'));
@@ -196,8 +195,7 @@
                 }
                 .titre-modal-pseudo {
                     vertical-align: super;
-                    font-size: 20px;
-                    margin-left: 10px;
+                    font-size: 22px;
                 }
                 .modal-pseudo-close {
                     border: 0;
@@ -206,9 +204,9 @@
                     font-size: 24px;
                     float: right;
                     position: absolute;
-                    right: 7px;
-                    top: 7px;
-                    background-color: #fff;
+                    right: 0;
+                    top: 0;
+                    background-color: transparent;
                     border-radius: 20px;
                     padding: 0 10px;
                     transition: 0.3s ease;
