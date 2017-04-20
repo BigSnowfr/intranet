@@ -47,6 +47,9 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
+<noscript>
+    <p>Vous devez activer le Javascript.</p>
+</noscript>
 <div id="app"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
 <script src="./dist/build.js"></script>
@@ -66,6 +69,14 @@
     ga('create', 'UA-97714336-1', 'auto');
     ga('send', 'pageview');
 
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function(registration) {
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
 </script>
 </body>
 </html>
