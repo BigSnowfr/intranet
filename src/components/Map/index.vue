@@ -8,7 +8,7 @@
                     <div class="map__image">
                         <svg class="plan_iut_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate"
                              viewBox="-7.069401637272728 0 427.06940163727273 400" width="100%" height="400">
-                            <path d=" M 174 128 L 174 147 L 196 148 L 196 162 L 159 162 L 160 115 L 223 116.04222120874621 L 222.7692083033441 130.08684633817418 L 174 128 Z "
+                            <path  d=" M 174 128 L 174 147 L 196 148 L 196 162 L 159 162 L 160 115 L 223 116.04222120874621 L 222.7692083033441 130.08684633817418 L 174 128 Z "
                                   fill="rgb(20,111,136)"/>
                             <path d=" M 258.44617589808524 320 L 200.74853115524365 372 L 3.999999999999986 236.00000000000003 L 160 80.77137046027883"
                                   fill="none"/>
@@ -31,18 +31,20 @@
                                       stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
                             <polygon
+                                    class="fleche-entre"
                                     points="203.90418265814898,46.19527734266955,197.5928796523383,44.34566544001762,202.3503420500823,39.80472265733045"
                                     fill="rgb(46,159,46)"/>
-                            <line x1="200.79180055918934" y1="42.95818259004028" x2="195.95673059605423" y2="38.041817409959734"/>
+                            <line  class="fleche-entre" x1="200.79180055918934" y1="42.95818259004028" x2="195.95673059605423" y2="38.041817409959734"/>
                             <g style="isolation: isolate;">
                                 <line x1="200.79180055918934" y1="42.95818259004028" x2="195.95673059605423" y2="38.041817409959734" fill="none"
                                       vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(46,159,46)" stroke-linejoin="miter"
                                       stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
                             <polygon
+                                    class="fleche-entre"
                                     points="170.94745206209475,77.24474713851646,164.63614905628407,75.39513523586453,169.39361145402808,70.85419245317736"
                                     fill="rgb(46,159,46)"/>
-                            <line x1="167.83507396353207" y1="74.00765231606" x2="163" y2="69.09128720580665"/>
+                            <line class="fleche-entre" x1="167.83507396353207" y1="74.00765231606" x2="163" y2="69.09128720580665"/>
                             <g style="isolation: isolate;">
                                 <line x1="167.83507396353207" y1="74.00765231606" x2="163" y2="69.09128720580665" fill="none"
                                       vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(46,159,46)" stroke-linejoin="miter"
@@ -647,17 +649,16 @@
                                   @click="selectBatiment('D')" x="214.86100395588815" y="224.31341515327045" width="50.59981824786908" height="68.6735361514227"
                                   transform="matrix(0.999754452115306,0.0221593202879584,-0.02215932028795839,0.999754452115306,5.790483256903059,-5.258291588216707)"
                                   fill="rgb(20,111,136)"/>
-                            <path d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
-                                  fill="none"/>
                             <g style="isolation: isolate;">
-                                <path d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
+                                <path class="route-interne" d=" M 205.34641293455897 47.394659775722616 L 342.45420328345983 147.0610759568791 L 342.45420328345983 227.37997626278832 L 257.8954720593229 306"
                                       fill="none" vector-effect="non-scaling-stroke" stroke-width="5" stroke="rgb(0,0,0)"
                                       stroke-linejoin="miter" stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
                             <polygon
+                                    class="fleche-entre"
                                     points="263.0947236842261,308.2738112486046,269.4060266900368,310.1234231512565,264.6485642922928,314.66436593394366"
                                     fill="rgb(46,159,46)"/>
-                            <line x1="266.2071017827888" y1="311.51090607106096" x2="271.0421757463209" y2="316.4272711813143"/>
+                            <line class="fleche-entre" x1="266.2071017827888" y1="311.51090607106096" x2="271.0421757463209" y2="316.4272711813143"/>
                             <g style="isolation: isolate;">
                                 <line x1="266.2071017827888" y1="311.51090607106096" x2="271.0421757463209" y2="316.4272711813143" fill="none"
                                       vector-effect="non-scaling-stroke" stroke-width="1" stroke="rgb(46,159,46)" stroke-linejoin="miter"
@@ -733,7 +734,7 @@
                             </g>
                             <line x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14"/>
                             <g style="isolation: isolate;">
-                                <line x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14" fill="none"
+                                <line class="route" x1="0" y1="218.66607008943163" x2="208.18207685150202" y2="14" fill="none"
                                       vector-effect="non-scaling-stroke" stroke-width="10" stroke="rgb(39,176,124)" stroke-linejoin="miter"
                                       stroke-linecap="square" stroke-miterlimit="3"/>
                             </g>
@@ -1150,6 +1151,51 @@
     $greenDark: #248e5f;
     $blue: #146F88;
     $blueDark: #135e73;
+    .fleche-entre {
+        fill: transparent;
+        stroke: $greenDark;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1px;
+        animation: arrow 5s linear infinite;
+    }
+    .route {
+        fill: transparent;
+        stroke: $green;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 7px;
+        animation: trolley-path-move 120s linear infinite;
+        stroke-dasharray: 20;
+    }
+    .route-interne {
+        fill: transparent;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 4px;
+        animation: trolley-path-move 120s linear infinite;
+        stroke-dasharray: 10;
+    }
+    @keyframes arrow {
+        0% {
+            stroke-width: 3px;
+        }
+        50% {
+            stroke-width: 1px;
+        }
+        100% {
+            stroke-width: 3px;
+        }
+    }
+    @keyframes trolley-path-move {
+        from {
+            stroke-dashoffset: 100%;
+        }
+        to {
+            stroke-dashoffset: 0%;
+        }
+    }
     @keyframes changeMapToBatiment {
         0% {
             opacity: 0;

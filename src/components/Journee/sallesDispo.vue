@@ -1,16 +1,23 @@
 <template>
     <div class="pas-cours liste-info">
         <button-jour></button-jour>
-        <div class="top">
-            <span class="titre">Il est {{ heure }}</span>
-            <span class="sous-titre">Vous pouvez travailler dans ces salles</span>
+        <div v-if="visible">
+            <div class="top">
+                <span class="titre">Il est {{ heure }}</span>
+                <span class="sous-titre">Vous pouvez travailler dans ces salles</span>
+            </div>
+            <div class="bottom">
+                <ul class="salles">
+                    <router-link to='/plan' class='boutton' exact>
+                        <li @click="selectClasse(salle)" class="salle-dispo" v-for="salle in sallesMMI">{{ salle }}</li>
+                    </router-link>
+                </ul>
+            </div>
         </div>
-        <div class="bottom">
-            <ul class="salles">
-                <router-link to='/plan' class='boutton' exact>
-                <li @click="selectClasse(salle)" class="salle-dispo" v-for="salle in sallesMMI">{{ salle }}</li>
-                </router-link>
-            </ul>
+        <div v-else>
+            <div class="top">
+                <span class="titre">L'IUT est fermé</span>
+            </div>
         </div>
     </div>
 </template>
@@ -27,6 +34,7 @@
             return {
                 sallesDispo: [],
                 heure: '',
+                visible: true,
                 sallesMMI: ['STUD', 'H001', 'H005', 'H006', 'H007', 'H008', 'H016', 'H201', 'H205', 'H101', 'H103', 'H104', 'H105']
             }
         },
@@ -37,7 +45,9 @@
             salles: Object
         },
         created () {
-          this.heure = moment().format("HH:mm")
+            this.heure = moment().format("HH:mm");
+            let now = moment().format("H");
+            this.visible = now > 7 && now < 20;
         },
         methods: {
             selectClasse (salle) {
