@@ -269,4 +269,9 @@
         }
 
     }
+    @media screen and (max-width: 400px) {
+        .modal-pseudo .modal-pseudo-contenu .text .titre-modal-pseudo {
+            font-size: 14px;
+        }
+    }
 </style>

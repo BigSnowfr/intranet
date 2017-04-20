@@ -129,6 +129,9 @@
     * {
         box-sizing: border-box;
     }
+    *:focus {
+        outline: none;
+    }
     body {
         margin: 0;
         font-family: 'Open Sans', sans-serif;
