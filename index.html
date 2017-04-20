@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Ma journée | IUT de Troyes</title>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="description"
+          content="Application Intranet IUT de Troyes. Accédez à votre emploi du temps, au plan de l'IUT, à la liste de vos enseignants et plein d'autres informations utiles.">
+    <meta name="news_keywords"
+          content="intranet, iut, troyes, etudiant, edt, emploi, du, temps, enseignant, prof, plan, dut, mmi, tc, gea, geii, cj, gmp"/>
     <meta name=viewport content="width=device-width, initial-scale=1.0"/>
     <meta name=theme-color content="#115f72">
     <meta name=robots content=index>
@@ -12,7 +17,19 @@
     <meta name=theme-color content="#115f72">
     <meta name="apple-touch-fullscreen" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta property="og:title" content="Ma journée | IUT de Troyes"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://195.83.128.55/~mmi15b08/intranet/"/>
+    <meta property="og:image" content="http://195.83.128.55/~mmi15b08/intranet/img/android-icon-192x192.png"/>
+    <meta property="og:description"
+          content="Application Intranet IUT de Troyes. Accédez à votre emploi du temps, au plan de l'IUT, à la liste de vos enseignants et plein d'autres informations utiles."/>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="http://195.83.128.55/~mmi15b08/intranet/">
+    <meta name="twitter:title" content="Ma journée | IUT de Troyes">
+    <meta name="twitter:description"
+          content="Application Intranet IUT de Troyes. Accédez à votre emploi du temps, au plan de l'IUT, à la liste de vos enseignants et plein d'autres informations utiles.">
+    <meta name="twitter:image" content="http://195.83.128.55/~mmi15b08/intranet/img/android-icon-192x192.png">
     <link rel=apple-touch-icon sizes=57x57 href="./img/apple-icon-57x57.png">
     <link rel=apple-touch-icon sizes=60x60 href="./img/apple-icon-60x60.png">
     <link rel=apple-touch-icon sizes=72x72 href="./img/apple-icon-72x72.png">
@@ -28,20 +45,27 @@
     <link rel=icon type="image/png" sizes=16x16 href="./img/favicon-16x16.png">
     <link rel=manifest href="manifest.json">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
-    <script src="./dist/build.js"></script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+</head>
+<body>
+<div id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+<script src="./dist/build.js"></script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-97714336-1', 'auto');
-        ga('send', 'pageview');
+    ga('create', 'UA-97714336-1', 'auto');
+    ga('send', 'pageview');
 
-    </script>
-  </body>
+</script>
+</body>
 </html>
