@@ -1,30 +1,27 @@
 <template>
-        <div id="app" class="content">
-            <div class="header">
-                <div class="header-top">
-                    <button class="menu-group" @click="toggleMenu">
-                        <span class="menu-bar menu-long-bar"></span>
-                        <span class="menu-bar menu-short-bar"></span>
-                    </button>
-                    <div class="titre">
-                        <button @click="changeAccount" class="bouton">Bonjour {{ etudiant.prenom }}</button>
-                    </div>
-                </div>
-                <p class="date">{{ date }}</p>
+    <div id="app" class="content">
+        <div class="header">
+            <div class="header-top">
+                <button class="menu-group" @click="toggleMenu">
+                    <span class="menu-bar menu-long-bar"></span>
+                    <span class="menu-bar menu-short-bar"></span>
+                </button>
+                IUT de Troyes
             </div>
-            <div v-if="mypseudo">
-                <div class="loaded">
-                    <div class="contenu">
-                        <transition name='slide-fade' mode='out-in'>
-                            <router-view></router-view>
-                        </transition>
-                    </div>
-                </div>
-            </div>
-            <modal-pseudo v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></modal-pseudo>
-            <div class="blur"  v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
-            <side-bar></side-bar>
         </div>
+        <div v-if="mypseudo">
+            <div class="loaded">
+                <div class="contenu">
+                    <transition name='slide-fade' mode='out-in'>
+                        <router-view></router-view>
+                    </transition>
+                </div>
+            </div>
+        </div>
+        <modal-pseudo v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></modal-pseudo>
+        <div class="blur" v-if="mypseudo === '' || modalPseudo ==='friend' || modalPseudo === 'me'"></div>
+        <side-bar></side-bar>
+    </div>
 </template>
 
 <script>
@@ -33,7 +30,7 @@
     import tuileCours from './Journee/tuileCours.vue'
     import modalPseudo from './ModalPseudo/modalPseudo.vue'
     import store from '../store'
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
     import sideBar from './Menu/sideBar.vue'
 
     export default {
@@ -61,13 +58,13 @@
             this.date = moment().format('dddd D MMMM YYYY');
 
             let pseudo = localStorage.getItem('pseudo');
-            if(pseudo) this.$store.dispatch('definePseudo', pseudo);
+            if (pseudo) this.$store.dispatch('definePseudo', pseudo);
 
             // Récupération de la météo
             this.$store.dispatch('setWeather');
         },
         mounted () {
-            if(this.mypseudo !== '') this.getPseudo();
+            if (this.mypseudo !== '') this.getPseudo();
             else this.$store.dispatch('toggleModalPseudo', 'me');
         },
         computed: mapGetters([
@@ -83,7 +80,7 @@
                 this.$store.dispatch('getPseudo');
             },
             changeAccount () {
-                if(!this.menuVisible) this.$store.dispatch('toggleModalPseudo', 'me');
+                if (!this.menuVisible) this.$store.dispatch('toggleModalPseudo', 'me');
             },
             changeJour(jour) {
                 let jourAPI = jour.path === '/' ? 'edtjour' : 'edtlendemain';
@@ -103,19 +100,22 @@
 </script>
 
 <style lang="scss">
-    $green: #27B07C;
+    $green: #4A90E2;
     $blue: #146F88;
     $blueDark: #57709c;
     // Nav
     .slide-fade-enter-active {
         transition: all .2s ease;
     }
+
     .slide-fade-leave-active {
         transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
+
     .slide-fade-enter, .slide-fade-leave-to {
         transform: translateX(100vh);
     }
+
     .blur {
         position: absolute;
         top: 0;
@@ -126,12 +126,15 @@
         opacity: 0.5;
         z-index: 13;
     }
+
     * {
         box-sizing: border-box;
     }
+
     *:focus {
         outline: none;
     }
+
     body {
         margin: 0;
         font-family: 'Open Sans', sans-serif;
@@ -139,6 +142,7 @@
         line-height: 1.42857143;
         color: #333;
     }
+
     button {
         text-transform: none;
         font-family: inherit;
@@ -146,14 +150,17 @@
         line-height: inherit;
         cursor: pointer;
     }
+
     li {
         list-style: none;
     }
+
     a {
         color: $blue;
         font-weight: bold;
         text-decoration: none;
     }
+
     *:focus {
         outline: none;
     }
@@ -179,21 +186,23 @@
         }
         .header {
             width: 100%;
-            max-height: 120px;
+            height: 60px;
             color: #ffffff;
-            padding-top: 2vh;
             text-align: center;
             flex-direction: column;
-            background: linear-gradient(to top, #0d92b7, #197e9a);
+            background: $green;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
             position: fixed;
             z-index: 10;
             margin-top: -20px;
             .header-top {
                 display: flex;
+                height: 100%;
+                align-items: center;
+                font-size: 20px;
                 .menu-group {
                     margin-left: 10px;
-                    margin-right: 5px;
+                    margin-right: 20px;
                     padding-top: 3px;
                     background-color: transparent;
                     border: 0;
@@ -312,7 +321,8 @@
             }
         }
     }
-    @media screen and (min-width: 780px){
+
+    @media screen and (min-width: 780px) {
         .loaded {
             max-width: 75%;
             margin: 0 auto;
@@ -353,7 +363,7 @@
         .side-bar {
             width: 25% !important;
             margin-left: 0 !important;
-            opacity:1;
+            opacity: 1;
             font-weight: normal;
             &:hover {
                 opacity: 1;
@@ -374,6 +384,7 @@
             }
         }
     }
+
     .hidden {
         display: none;
     }

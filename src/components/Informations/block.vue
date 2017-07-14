@@ -37,7 +37,7 @@
 </script>
 
 <style lang="scss">
-    $green: #27B07C;
+    $green: #4a90e2;
     .block-information {
         width: 100%;
         min-height: 100px;

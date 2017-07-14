@@ -117,8 +117,8 @@
     }
 </script>
 <style lang="scss">
-    $green: #27B07C;
-    $blue: #146F88;
+    $green: #77b5fd;
+    $blue: #4a90e2;
     $blueDark: #57709c;
     $orangeLight: #cc9144;
     .cours {
@@ -157,9 +157,9 @@
         width: 100%;
         min-height: 90px;
         padding: 10px 10px 0 10px;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         transition: 0.3s ease;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19);
         .top {
             display: flex;
             .nom {

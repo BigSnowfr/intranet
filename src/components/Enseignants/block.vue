@@ -51,7 +51,7 @@
 
 <style lang="scss">
     $green: #27B07C;
-    $blue: #146F88;
+    $blue: #4a90e2;
     .block-prof {
         border: 0;
         min-height: 100px;

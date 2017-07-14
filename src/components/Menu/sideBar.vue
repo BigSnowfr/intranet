@@ -109,7 +109,7 @@
         display: none;
     }
     .side-bar {
-        background: linear-gradient(to top, #27b3da, #197e9a);
+        background: #4a90e2;
         top: 0;
         bottom: 0;
         z-index: 11;

@@ -115,7 +115,7 @@
 
 <style lang="scss">
     $green: #27B07C;
-    $blue: #146F88;
+    $blue: #4a90e2;
     $blueDark: #57709c;
 
     [v-cloak] {
@@ -151,7 +151,7 @@
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
-        margin-top: 110px;
+        margin-top: 60px;
         .liste-prof-ul {
             padding-left: 0;
             .liste-prof-li {

@@ -42,13 +42,13 @@
         right: 20px;
         bottom: 20px;
        // background-color: $orange;
-        background: linear-gradient(to top, #ffac63, #f3903a);
+        background: #ce3a27;
         text-align: center;
         padding: 10px;
         height: 50px;
         width: 50px;
         border-radius: 50%;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.19);
         transition: all 0.3s ease;
         &:hover {
             transform: scale(1.1);

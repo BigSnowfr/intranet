@@ -24,7 +24,7 @@
 <script>
     import {HTTP} from '../../api'
     import moment from 'moment'
-    import { mapGetters } from 'vuex'
+    import {mapGetters} from 'vuex'
     import buttonJour from './buttonJour.vue'
     import store from '../../store/index'
     export default {
@@ -63,7 +63,7 @@
     }
 </script>
 <style lang="scss">
-    $green : #27B07C;
+    $green: #27B07C;
     $blue: #6a85b6;
     $blueDark: #57709c;
     .pas-cours {
@@ -105,7 +105,7 @@
         }
         .salles {
             margin-top: 7px;
-            margin-right:-10px;
+            margin-right: -10px;
             margin-bottom: 0;
             text-align: center;
             font-size: 12px;

@@ -12,6 +12,8 @@
   "dependencies": {
     "axios": "^0.15.3",
     "babel-preset-stage-2": "^6.24.1",
+    "express": "^4.15.3",
+    "sw-precache-webpack-plugin": "^0.11.4",
     "vue": "^2.2.1",
     "vue-axios": "^2.0.1",
     "vue-moment": "^2.0.2",

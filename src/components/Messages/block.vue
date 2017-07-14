@@ -37,7 +37,7 @@
 </script>
 <style lang="scss">
     $green: #27B07C;
-    $blue: #146F88;
+    $blue: #4a90e2;
     $blueLight: #5193a5;
     $blueDark: #57709c;
     $orangeMessage: #FFA657;
